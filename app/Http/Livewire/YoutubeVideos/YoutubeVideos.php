@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\YoutubeVideos;
 
+use App\Actions\YoutubeVideos\DeleteSingleYoutubeVideo;
 use App\Actions\YoutubeVideos\DeleteYoutubeVideos;
 use App\Models\YoutubeVideo;
 use Livewire\Component;
@@ -14,28 +15,13 @@ class YoutubeVideos extends Component
     public array $selected = [];
     public bool $selectExist = false;
     public bool $confirmDeletionSelected = false;
-
-    public array $messages = [
-        'traffic.required' => 'Le champ répartition est obligatoire',
-        'landing_page_selected_id.required' => 'Vous devez obligatoirement sélectionner une landing page',
-    ];
-
-    public function rules()
-    {
-        return [
-            'traffic' => 'required|string',
-            'landingPageSelected' => 'required|int',
-        ];
-    }
-
-    public function mount()
-    {
-        /*$this->campaign = $campaign;
-        $this->campaignPages = CampaignPage::where('campaign_id', $campaign->id)->get();
-        $this->deleteCampaignPageModal = false;
-        $this->isValid = false;
-        $this->addLandingPageModal = false; */
-    }
+    public bool $confirmDeletionSingleEntry = false;
+    public bool $editEntryModal = false;
+    public YoutubeVideo $video;
+    public string $videoName = '';
+    public string $videoIframe = '';
+    public string $videoId = '';
+    public string $numberResults = '5';
 
     public function toggleSelection($id)
     {
@@ -57,6 +43,15 @@ class YoutubeVideos extends Component
         $this->confirmDeletionSelected = true;
     }
 
+    public function confirmDeletionSingleEntry($id)
+    {
+        $this->confirmDeletionSingleEntry = true;
+        $this->video = YoutubeVideo::where('id', $id)->first();
+        $this->videoId = $id;
+        $this->videoName = $this->video->name;
+    }
+
+
     public function deleteSelection()
     {
         if (DeleteYoutubeVideos::run($this->selected)) {
@@ -67,40 +62,33 @@ class YoutubeVideos extends Component
         }
     }
 
+    public function deleteSingleEntry($id)
+    {
+        if (DeleteSingleYoutubeVideo::run($id)) {
+            session()->flash('success', 'Your video has been successfully deleted !');
+            redirect()->route('admin.youtube-videos.index');
+        } else {
+            session()->flash('error', 'Something went wrong, please retry !');
+        }
+    }
+
+    public function editEntryModal($id)
+    {
+        $this->editEntryModal = true;
+        $this->video = YoutubeVideo::where('id', $id)->first();
+        $this->videoId = $id;
+        $this->videoName = $this->video->name;
+        $this->videoIframe = $this->video->iframe;
+        dd($this->videoIframe);
+    }
+
+    public function updateEntry()
+    {
+        dd('test');
+    }
+
     public function render()
     {
-        return view('livewire.youtube-videos.youtube-videos', ['youtubeVideos' => YoutubeVideo::paginate(5)]);
-    }
-
-    public function deleteCampaignPageModal($id)
-    {
-        /*         $this->deleteCampaignPageModal = true;
-        $this->campaignPage = CampaignPage::findOrFail($id);
-        $this->titleLandingPage = $this->campaignPage->page->name;
-        $this->landingPageId = $this->campaignPage->page->id; */
-    }
-
-    public function deleteCampaignPage()
-    {
-    }
-
-    public function updated($propertyName)
-    {
-    }
-
-    public function addLandingPageModal()
-    {
-        /*         $this->addLandingPageModal = true;
-        $this->landingPages = Page::all(); */
-    }
-
-    public function AddLandingPageCampaign()
-    {
-        /*         if (CreateCampaignPage::run($this->campaign, $this->validate())) {
-            session()->flash('success', 'Landing page associée avec succès !');
-            redirect()->route('campaign.edit', $this->campaign->id);
-        } else {
-            session()->flash('error', 'Une erreur est survenue !');
-        } */
+        return view('livewire.youtube-videos.youtube-videos', ['youtubeVideos' => YoutubeVideo::paginate($this->numberResults)]);
     }
 }

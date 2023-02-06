@@ -42,7 +42,7 @@ $maxWidth = [
     aria-hidden="true"
     x-ref="modal-id-{{ $id }}"
 >
-    <div class="modal-dialog{{ $maxWidth }}">
+    <div class="modal-dialog{{ $maxWidth }} modal-dialog-centered modal-lg">
         {{ $slot }}
     </div>
 </div>

@@ -5,9 +5,10 @@
     height: 0;
 }
 .video-responsive iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 85%;
+    width: 85%;
     position: absolute;
 }
