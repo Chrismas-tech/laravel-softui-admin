@@ -149,11 +149,12 @@
         }
       }
     }
-  
+
     .g-sidenav-show & {
-      &:not(.sidenav).navbar-main {
+      &:not(.sidenav).navbar-main,
+      &:not(.mixed-navbar) {
         .navbar-collapse {
-          display: flex !important;
+        //   display: flex !important;
           flex-basis: auto;
         }
 

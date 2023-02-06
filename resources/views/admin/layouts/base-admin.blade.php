@@ -36,6 +36,16 @@
     <!-- Page Content -->
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         @include('admin.layouts.navbar-right')
+        @if (session()->has('success'))
+            <div class="alert alert-success text-white text-sm ms-2 me-2 mb-0">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session()->has('error'))
+            <div class="alert alert-danger text-white text-sm ms-2 me-2 mb-0">
+                {{ session('error') }}
+            </div>
+        @endif
         @yield('content')
         @include('admin.layouts.footer')
     </main>

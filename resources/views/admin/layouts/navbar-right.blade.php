@@ -5,22 +5,22 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">@yield('title')</li>
             </ol>
-            <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+            <h6 class="font-weight-bolder mb-0">@yield('title')</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+        <div class="d-flex justify-content-between mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex justify-content-between align-items-center">
                 <div class="input-group">
                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" placeholder="Type here...">
                 </div>
             </div>
             <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item d-flex align-items-center">
+                {{--  <li class="nav-item d-flex align-items-center">
                     <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank"
                         href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard">Online Builder</a>
-                </li>
+                </li> --}}
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
@@ -118,54 +118,56 @@
                         </li>
                     </ul>
                 </li>
-                @auth
-                    <x-jet-dropdown id="settingsDropdown">
-                        <x-slot name="trigger">
-                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <img class="rounded-circle" width="32" height="32"
-                                    src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                            @else
-                                {{ Auth::user()->name }}
+                <li>
+                    @auth
+                        <x-jet-dropdown id="settingsDropdown">
+                            <x-slot name="trigger">
+                                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                    <img class="rounded-circle" width="32" height="32"
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                @else
+                                    {{ Auth::user()->name }}
 
-                                <svg class="ms-2" width="18" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            @endif
-                        </x-slot>
+                                    <svg class="ms-2" width="18" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                @endif
+                            </x-slot>
 
-                        <x-slot name="content">
-                            <!-- Account Management -->
-                            <h6 class="dropdown-header small text-muted">
-                                {{ __('Manage Account') }}
-                            </h6>
+                            <x-slot name="content">
+                                <!-- Account Management -->
+                                <h6 class="dropdown-header small text-muted">
+                                    {{ __('Manage Account') }}
+                                </h6>
 
-                            <x-jet-dropdown-link href="{{ route('admin.profile') }}">
-                                {{ __('Profile') }}
-                            </x-jet-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
+                                <x-jet-dropdown-link href="{{ route('admin.profile') }}">
+                                    {{ __('Profile') }}
                                 </x-jet-dropdown-link>
-                            @endif
 
-                            <hr class="dropdown-divider">
+                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                    <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
+                                        {{ __('API Tokens') }}
+                                    </x-jet-dropdown-link>
+                                @endif
 
-                            <!-- Authentication -->
-                            <x-jet-dropdown-link href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
+                                <hr class="dropdown-divider">
+
+                                <!-- Authentication -->
+                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Log out') }}
-                            </x-jet-dropdown-link>
-                            <form method="POST" id="logout-form" action="{{ route('logout') }}">
-                                @csrf
-                            </form>
-                        </x-slot>
-                    </x-jet-dropdown>
-                @endauth
+                                    {{ __('Log out') }}
+                                </x-jet-dropdown-link>
+                                <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                                    @csrf
+                                </form>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    @endauth
+                </li>
             </ul>
         </div>
     </div>
