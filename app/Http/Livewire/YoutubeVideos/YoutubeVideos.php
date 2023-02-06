@@ -4,8 +4,10 @@ namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Actions\YoutubeVideos\DeleteSingleYoutubeVideo;
 use App\Actions\YoutubeVideos\DeleteYoutubeVideos;
+use App\Actions\YoutubeVideos\UpdateYoutubeVideo;
 use App\Models\YoutubeVideo;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
 
 class YoutubeVideos extends Component
@@ -17,11 +19,38 @@ class YoutubeVideos extends Component
     public bool $confirmDeletionSelected = false;
     public bool $confirmDeletionSingleEntry = false;
     public bool $editEntryModal = false;
+    public bool $isValid = true;
     public YoutubeVideo $video;
     public string $videoName = '';
     public string $videoIframe = '';
     public string $videoId = '';
     public string $numberResults = '5';
+
+    public $messages = [
+        'videoName.required' => 'This field is required.',
+        'videoIframe.required' => 'This field is required.',
+        'videoIframe.regex' => 'Your Iframe must beginning by <iframe> and finish by </iframe>.',
+    ];
+
+    public function rules()
+    {
+        return [
+            'videoName' => 'required|string|min:3',
+            'videoIframe' => 'required|string|regex:/^<iframe[^<]*<\/iframe>$/',
+        ];
+    }
+
+    public function updated($propertyName)
+    {
+        try {
+            $this->validate();
+            $this->isValid = true;
+        } catch (ValidationException $ex) {
+            $this->isValid = false;
+        }
+
+        $this->validateOnly($propertyName);
+    }
 
     public function toggleSelection($id)
     {
@@ -79,12 +108,16 @@ class YoutubeVideos extends Component
         $this->videoId = $id;
         $this->videoName = $this->video->name;
         $this->videoIframe = $this->video->iframe;
-        dd($this->videoIframe);
     }
 
     public function updateEntry()
     {
-        dd('test');
+        if (UpdateYoutubeVideo::run($this->video, $this->validate())) {
+            session()->flash('success', 'Your video has been successfully updated !');
+            redirect()->route('admin.youtube-videos.index');
+        } else {
+            session()->flash('error', 'Something went wrong, please retry !');
+        }
     }
 
     public function render()
