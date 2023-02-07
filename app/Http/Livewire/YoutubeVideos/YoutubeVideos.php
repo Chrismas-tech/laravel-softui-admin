@@ -122,6 +122,6 @@ class YoutubeVideos extends Component
 
     public function render()
     {
-        return view('livewire.youtube-videos.youtube-videos', ['youtubeVideos' => YoutubeVideo::paginate($this->numberResults)]);
+        return view('livewire.youtube-videos.youtube-videos', ['youtubeVideos' => YoutubeVideo::orderBy('created_at','desc')->paginate($this->numberResults)]);
     }
 }

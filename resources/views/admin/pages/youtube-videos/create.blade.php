@@ -1,7 +1,11 @@
 @extends('admin.layouts.base-admin')
 @section('title')
-    Add a Youtube Video
+    Create a Youtube Video
 @endsection
 @section('content')
-<h2>Test</h2>
+    <div class="container-fluid py-4">
+        <div class="card">
+            <livewire:youtube-videos.create-youtube-video />
+        </div>
+    </div>
 @endsection

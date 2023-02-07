@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\YoutubeVideo;
-use Illuminate\Http\Request;
-
 class YoutubeVideoController extends Controller
 {
     /**
@@ -18,13 +15,12 @@ class YoutubeVideoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Create a resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function create()
     {
-        return view('admin.pages.youtube-videos.edit', ['video' => YoutubeVideo::where('id', $id)->first()]);
+        return view('admin.pages.youtube-videos.create');
     }
 }
