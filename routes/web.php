@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AlbumPhotoController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,11 @@ Route::middleware([
         Route::prefix('youtube-videos')->group(function () {
             Route::get('/', [YoutubeVideoController::class, 'index'])->name('admin.youtube-videos.index');
             Route::get('/create', [YoutubeVideoController::class, 'create'])->name('admin.youtube-videos.create');
+        });
+
+        Route::prefix('album-photos')->group(function () {
+            Route::get('/', [AlbumPhotoController::class, 'index'])->name('admin.album-photos.index');
+            Route::get('/create', [AlbumPhotoController::class, 'create'])->name('admin.album-photos.create');
         });
     });
 });
