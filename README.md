@@ -4,8 +4,9 @@
 
 ### 2. Open a terminal to www/ folder, paste the following commands :
 
-- git clone https://github.com/Chrismas-tech/laravel9-bootstrap5-vite.git
-- cd laravel9-bootstrap5-vite
+- git clone https://github.com/Chrismas-tech/laravel-softui-admin.git
+
+- cd laravel-softui-admin
 - composer install
 - copy .env.example .env
 - php artisan key:generate
