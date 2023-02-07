@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Actions\YoutubeVideos;
+namespace App\Actions\Database;
 
 use App\Models\YoutubeVideo;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class DeleteYoutubeVideos
+class DeleteEntries
 {
     use AsAction;
 

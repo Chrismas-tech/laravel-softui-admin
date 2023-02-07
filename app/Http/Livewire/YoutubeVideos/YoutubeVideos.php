@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Actions\Database\DuplicateEntry;
-use App\Actions\YoutubeVideos\DeleteYoutubeVideos;
+use App\Actions\Database\DeleteEntries;
 use App\Actions\YoutubeVideos\UpdateYoutubeVideo;
 use App\Models\YoutubeVideo;
 use Livewire\Component;
@@ -98,7 +98,7 @@ class YoutubeVideos extends Component
 
     public function deleteSelection()
     {
-        if (DeleteYoutubeVideos::run($this->selected)) {
+        if (DeleteEntries::run($this->selected)) {
             $this->notifySuccess = 'Your video(s) has/have been successfully deleted !';
         } else {
             $this->notifyError = true;

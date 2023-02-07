@@ -1,7 +1,7 @@
 <!-- Delete Mutiple Entries-->
 <x-jet-dialog-modal wire:model="confirmDeletionSelected">
     <x-slot name="title">
-        {{ __('Delete Youtube Video(s)') }}
+        {{ __('Delete these/this Entry(ies) ?') }}
     </x-slot>
 
     <x-slot name="content">
