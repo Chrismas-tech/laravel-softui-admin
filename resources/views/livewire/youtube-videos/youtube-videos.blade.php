@@ -45,7 +45,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($collectionpagination as $video)
+            @forelse ($collectionPagination as $video)
                 <tr>
                     <td width="50%;">
                         <div class="d-flex justify-content-center">
@@ -84,22 +84,22 @@
     <!-- Edit Entry -->
     <x-jet-dialog-modal wire:model="editEntryModal">
         <x-slot name="title">
-            Edit your Video #{{ $videoId }} {{ $videoName }}
+            Edit your Video #{{ $modelId }} {{ $modelName }}
         </x-slot>
 
         <x-slot name="content">
             <div class="mb-3">
                 <label class="form-label" for="">Youtube Video Name</label>
                 <input type="text" class="form-control @error('videoName') is-invalid @enderror"
-                    wire:model="videoName" value="{{ $videoName }}">
-                @error('videoName')
+                    wire:model="modelName" value="{{ $modelName }}">
+                @error('modelName')
                     <span class="text-danger text-sm">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-3">
                 <label class="form-label" for="">Iframe Video</label>
-                <textarea rows="5" class="form-control @error('videoIframe') is-invalid @enderror" wire:model="videoIframe">{!! $videoIframe !!}</textarea>
-                @error('videoIframe')
+                <textarea rows="5" class="form-control @error('modelIframe') is-invalid @enderror" wire:model="modelIframe">{!! $modelIframe !!}</textarea>
+                @error('modelIframe')
                     <span class="text-danger text-sm">{{ $message }}</span>
                 @enderror
             </div>
@@ -111,7 +111,7 @@
             </x-jet-secondary-button>
 
             <button @if (!$isValid) disabled @endif type="button" class="btn btn-success"
-                wire:click="updateEntry({{ $videoId }})" wire:loading.attr="disabled">
+                wire:click="updateEntry({{ $modelId }})" wire:loading.attr="disabled">
                 <div wire:loading wire:target="updateEntry" class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>

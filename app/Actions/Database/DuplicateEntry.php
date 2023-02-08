@@ -11,7 +11,10 @@ class DuplicateEntry
 
     public function handle(Model $model)
     {
-         $duplicate = $model->replicate();
-         return $duplicate->save();
+        for ($i = 0; $i < 50; $i++) {
+            $duplicate = $model->replicate();
+            $duplicate->save();
+        }
+        return $duplicate->save();
     }
 }

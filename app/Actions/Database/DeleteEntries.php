@@ -2,15 +2,15 @@
 
 namespace App\Actions\Database;
 
-use App\Models\YoutubeVideo;
+use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class DeleteEntries
 {
     use AsAction;
 
-    public function handle(array $ids)
+    public function handle(string $modelClass, array $ids)
     {
-       return YoutubeVideo::whereIn('id', $ids)->delete();
+        return $modelClass::whereIn('id', $ids)->delete();
     }
 }

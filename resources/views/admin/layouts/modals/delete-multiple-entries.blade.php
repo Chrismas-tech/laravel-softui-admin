@@ -1,11 +1,11 @@
 <!-- Delete Mutiple Entries-->
 <x-jet-dialog-modal wire:model="confirmDeletionSelected">
     <x-slot name="title">
-        {{ __('Delete these/this Entry(ies) ?') }}
+        {{ __('Delete these/this entry(ies) ?') }}
     </x-slot>
 
     <x-slot name="content">
-        {{ __('Are you sure you want to delete this/these Entry(ies) ?') }}
+        {{ __('Are you sure you want to delete this/these entry(ies) ?') }}
     </x-slot>
 
     <x-slot name="footer">
