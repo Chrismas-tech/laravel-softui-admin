@@ -1,32 +1,12 @@
 <div>
-    <div class="table-responsive">
-        @include('admin.layouts.collection-pagination')
-        <div class="d-flex justify-content-center mt-3">
-            <h5>{{ $numberResults }} result(s)</h5>
-        </div>
-        <div class="mt-3 mb-3 px-3 d-flex align-items-center">
-            <div class="d-flex align-items-center text-sm me-3">
-                <div class="me-2">Order By</div>
-                <select name="orderBy" class="form-control m-0" wire:model="orderBy">
-                    <option value="asc">Oldest to Newest</option>
-                    <option value="desc">Newest to Oldest</option>
-                </select>
-            </div>
-            <div class="d-flex align-items-center text-sm">
-                <div class="me-2">Results Per Page</div>
-                <select name="resultsPerPage" class="form-control m-0" wire:model="resultsPerPage">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-        </div>
+    @include('admin.layouts.collection-pagination')
+    <div class="d-flex justify-content-center">
+        <h5>{{ $numberResults }} result(s)</h5>
     </div>
-    <hr>
     @include('admin.layouts.notifications')
-    <div class="d-flex justify-content-between align-items-center p-3">
+    <div class="d-flex justify-content-between align-items-center px-3 py-3">
         <a href="{{ route('admin.youtube-videos.create') }}"
-            class="d-flex justify-content-between align-items-center btn bg-gradient-success mb-0">
+            class="d-flex justify-content-between align-items-center btn btn-outline-success mb-0">
             <i class="fa fa-plus me-2"></i>
             <span>Add a new Youtube Video</span>
         </a>
@@ -45,45 +25,90 @@
             @endif
         </div>
     </div>
-    <hr>
-    <table class="table align-items-center mb-0 table-striped">
-        <thead>
-            <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Youtube Video</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($collectionPagination as $video)
-                <tr>
-                    <td width="30%;">
-                        <div class="d-flex justify-content-center">
-                            <span class="badge bg-gradient-info mb-2">#{{ $video->id }}
-                                {{ $video->name }}</span>
-                        </div>
-                        <div class="video-responsive">
-                            {!! $video->iframe !!}
-                        </div>
-                    </td>
-                    <td width="50%;">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <div class="form-check form-switch d-flex justify-content-center align-items-center me-3">
-                                <input class="form-check-input" wire:click="toggleSelection({{ $video->id }})"
-                                    type="checkbox" {{ in_array($video->id, $selected) ? 'checked' : '' }}
-                                    id="flexSwitchCheckDefault">
-                            </div>
-                            <button wire:click="editEntryModal({{ $video->id }})" type="button"
-                                class="btn bg-gradient-info me-3 mb-0 mt-3 mb-3">Edit</button>
-                            <button wire:click="duplicateEntryModal({{ $video->id }})" type="button"
-                                class="btn bg-gradient-primary mb-0 mt-3 mb-3">Duplicate</button>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-            @endforelse
-        </tbody>
-    </table>
 
+    <div class="d-flex justify-content-between px-3 py-3 bg-light">
+        <div>
+            <input type="text"
+                class="form-control form-control form-lg @error('generalSearchTerm') is-invalid @enderror"
+                wire:model.debounce.400ms="generalSearchTerm" placeholder="Search something..." style="width:400px;">
+            <div class="pl-3">
+                @if (!($nbGeneralSearchResults === $numberResults && $nbGeneralSearchResults !== 0))
+                    <span class="text-dark text-xxs">{{ $nbGeneralSearchResults }} Result(s) for your search</span>
+                @endif
+                @error('generalSearchTerm')
+                    <span class="text-danger text-xxs">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="px-3 d-flex align-items-center">
+
+            <div class="d-flex align-items-center me-4 text-sm" style="cursor: pointer" wire:click="toggleOrderBy">
+                <span class="me-1" style="cursor: pointer">Order</span>
+                @if ($toggleOrderBy)
+                    <i title="Newest to Oldest" class="fas fa-2x fa-long-arrow-alt-up filter-arrows"></i>
+                @else
+                    <i title="Oldest to Newest" class="fas fa-2x fa-long-arrow-alt-down filter-arrows"></i>
+                @endif
+            </div>
+
+            <div class="d-flex align-items-center text-sm">
+                <div class="me-2">Results Per Page</div>
+                <select name="resultsPerPage" class="form-control m-0" wire:model="resultsPerPage">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0 table-striped">
+            <thead>
+                <tr>
+                    <th class="text-dark font-weight-bolder opacity-7">
+                        <div class="d-flex justify-content-between ">
+                            <span class="me-1">Youtube Video</span>
+                        </div>
+                    </th>
+                    <th class="text-dark text-center font-weight-bolder opacity-7 ps-2">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($collectionPagination as $video)
+                    <tr>
+                        <td width="30%;">
+                            <div class="d-flex justify-content-center">
+                                <span class="badge bg-gradient-info mb-2">#{{ $video->id }}
+                                    {{ $video->name }}</span>
+                            </div>
+                            <div class="video-responsive">
+                                {!! $video->iframe !!}
+                            </div>
+                        </td>
+                        <td width="50%;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div
+                                    class="form-check form-switch d-flex justify-content-center align-items-center me-3">
+                                    <input class="form-check-input" wire:click="toggleSelection({{ $video->id }})"
+                                        type="checkbox" {{ in_array($video->id, $selected) ? 'checked' : '' }}
+                                        id="flexSwitchCheckDefault">
+                                </div>
+                                <button wire:click="editEntryModal({{ $video->id }})" type="button"
+                                    class="btn bg-gradient-info me-3 mb-0 mt-3 mb-3">Edit</button>
+                                <button wire:click="duplicateEntryModal({{ $video->id }})" type="button"
+                                    class="btn bg-gradient-primary mb-0 mt-3 mb-3">Duplicate</button>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                @endforelse
+            </tbody>
+        </table>
+    </div>
     @include('admin.layouts.collection-pagination')
 
     <!-- Modals -->

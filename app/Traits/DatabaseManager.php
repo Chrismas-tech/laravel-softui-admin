@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Actions\Database\DeleteEntries;
 use App\Actions\Database\DuplicateEntry;
 use App\Actions\Database\UpdateEntry;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\WithPagination;
 
 trait DatabaseManager
@@ -23,6 +24,19 @@ trait DatabaseManager
     public string $orderBy = 'desc';
     public string $notifySuccess = '';
     public bool $notifyError = false;
+    public string $generalSearchTerm = '';
+/*     public array $filterBy = []; */
+
+    public function toggleOrderBy()
+    {
+        $this->toggleOrderBy = !$this->toggleOrderBy;
+        $this->toggleOrderBy === false ? $this->orderBy = 'asc' : $this->orderBy = 'desc';
+    }
+
+/*     public function updateInputValue($event, $name)
+    {
+        $this->filterBy[$name] = $event;
+    } */
 
     public function toggleSelection($id)
     {
