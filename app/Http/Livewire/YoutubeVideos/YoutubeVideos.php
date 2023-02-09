@@ -4,7 +4,7 @@ namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Models\YoutubeVideo;
 use App\Traits\DatabaseManager;
-use App\Traits\YoutubeVideos\YoutubeVideos as YoutubeVideosYoutubeVideos;
+use Illuminate\Validation\ValidationException;
 use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Livewire\Component;
 
@@ -30,6 +30,18 @@ class YoutubeVideos extends Component
             'modelName' => 'required|string|min:3',
             'modelIframe' => 'required|string|regex:' . $this->regexIframe,
         ];
+    }
+
+    public function updated($propertyName)
+    {
+        try {
+            $this->validate();
+            $this->isValid = true;
+        } catch (ValidationException $ex) {
+            $this->isValid = false;
+        }
+
+        $this->validateOnly($propertyName);
     }
 
 

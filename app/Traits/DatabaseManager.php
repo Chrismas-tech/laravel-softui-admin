@@ -5,7 +5,6 @@ namespace App\Traits;
 use App\Actions\Database\DeleteEntries;
 use App\Actions\Database\DuplicateEntry;
 use App\Actions\Database\UpdateEntry;
-use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
 
 trait DatabaseManager
@@ -88,18 +87,6 @@ trait DatabaseManager
             $this->notifyError = true;
         }
         $this->editEntryModal = false;
-    }
-
-    public function updated($propertyName)
-    {
-        try {
-            $this->validate();
-            $this->isValid = true;
-        } catch (ValidationException $ex) {
-            $this->isValid = false;
-        }
-
-        $this->validateOnly($propertyName);
     }
 
     public function duplicate()

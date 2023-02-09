@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Actions\YoutubeVideos;
+namespace App\Actions\Database;
 
-use App\Models\YoutubeVideo;
+use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class CreateYoutubeVideo
+class CreateEntry
 {
     use AsAction;
 
-    public function handle(array $attributes)
+    public function handle(Model $model, array $attributes)
     {
-        return YoutubeVideo::create([
+        return $model::create([
             'name' => $attributes['videoName'],
             'iframe' => $attributes['videoIframe'],
         ]);
