@@ -3,9 +3,9 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html "
+        <a class="navbar-brand m-0" href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html "
             target="_blank">
-            <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="{{ asset('assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">Soft UI Dashboard</span>
         </a>
     </div>
@@ -74,7 +74,8 @@
                     href="{{ route('admin.youtube-videos.index') }}">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-button-play {{ Route::currentRouteName() === 'admin.youtube-videos.index' ? 'text-white' : 'text-dark' }}" width="12px" height="12px"></i>
+                        <i class="ni ni-button-play {{ Route::currentRouteName() === 'admin.youtube-videos.index' ? 'text-white' : 'text-dark' }}"
+                            width="12px" height="12px"></i>
                     </div>
                     <span class="nav-link-text ms-1">Youtube Videos</span>
                 </a>
@@ -87,8 +88,7 @@
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>credit-card</title>
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                    fill-rule="nonzero">
+                                <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                     <g transform="translate(1716.000000, 291.000000)">
                                         <g transform="translate(453.000000, 454.000000)">
                                             <path class="color-background opacity-6"

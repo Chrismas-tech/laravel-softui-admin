@@ -1,9 +1,11 @@
 <div>
     <div class="table-responsive">
         @include('admin.layouts.collection-pagination')
-        <div class="mt-3 mb-3 px-3 d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-center mt-3">
             <h5>{{ $numberResults }} result(s)</h5>
-            <div class="d-flex align-items-center text-sm">
+        </div>
+        <div class="mt-3 mb-3 px-3 d-flex align-items-center">
+            <div class="d-flex align-items-center text-sm me-3">
                 <div class="me-2">Order By</div>
                 <select name="orderBy" class="form-control m-0" wire:model="orderBy">
                     <option value="asc">Oldest to Newest</option>
@@ -54,9 +56,9 @@
         <tbody>
             @forelse ($collectionPagination as $video)
                 <tr>
-                    <td width="50%;">
+                    <td width="30%;">
                         <div class="d-flex justify-content-center">
-                            <span class="badge badge-pill bg-gradient-primary">#{{ $video->id }}
+                            <span class="badge bg-gradient-info mb-2">#{{ $video->id }}
                                 {{ $video->name }}</span>
                         </div>
                         <div class="video-responsive">

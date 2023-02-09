@@ -1,3 +1,4 @@
+@include('admin.layouts.notifications')
 <div class="p-3">
     <form>
         <div class="row">
@@ -26,7 +27,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-end">
-            <button @if (!$isValid) disabled @endif type="button" class="btn btn-success"
+            <button @if (!$isValidCreation) disabled @endif type="button" class="btn btn-success"
                 wire:click="createEntry" wire:loading.attr="disabled">
                 <div wire:loading wire:target="createEntry" class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Loading...</span>

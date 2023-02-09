@@ -3,17 +3,20 @@
 namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Actions\YoutubeVideos\CreateYoutubeVideo as CreateYoutubeVideoAction;
+use App\Traits\DatabaseManager;
 use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class CreateYoutubeVideo extends Component
 {
-    protected $paginationTheme = 'bootstrap';
     use YoutubeVideosTrait;
+    use DatabaseManager;
+    protected $paginationTheme = 'bootstrap';
     public string $videoName = '';
     public string $videoIframe = '';
-    public bool $isValid = false;
+    public bool $isValidCreation = false;
+    public string $modelClass = YoutubeVideo::class;
 
     public $messages = [
         'videoName.required' => 'This field is required.',
@@ -34,9 +37,9 @@ class CreateYoutubeVideo extends Component
     {
         try {
             $this->validate();
-            $this->isValid = true;
+            $this->isValidCreation = true;
         } catch (ValidationException $ex) {
-            $this->isValid = false;
+            $this->isValidCreation = false;
         }
 
         $this->validateOnly($propertyName);
@@ -45,10 +48,9 @@ class CreateYoutubeVideo extends Component
     public function createEntry()
     {
         if (CreateYoutubeVideoAction::run($this->validate())) {
-            session()->flash('success', 'Your video has been successfully created !');
-            redirect()->route('admin.youtube-videos.index');
+            $this->notifySuccess = 'Your entry(ies) has/have been successfully created !';
         } else {
-            session()->flash('error', 'Something went wrong, please retry !');
+            $this->notifyError = true;
         }
     }
 

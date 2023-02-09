@@ -69,7 +69,7 @@ trait DatabaseManager
     public function deleteSelection()
     {
         if (DeleteEntries::run($this->modelClass, $this->selected)) {
-            $this->notifySuccess = 'Your ' . str_replace('App\Models\\', '', $this->modelClass) . ' has/have been successfully updated !';
+            $this->notifySuccess =  $this->notifySuccess =  $this->notifySuccess = 'Your entry(ies) has/have been successfully deleted !';
             $this->model = new $this->modelClass();
         } else {
             $this->notifyError = true;
@@ -105,7 +105,7 @@ trait DatabaseManager
     public function duplicate()
     {
         if (DuplicateEntry::run($this->model)) {
-            $this->notifySuccess = 'Your ' . str_replace('App\Models\\', '', $this->modelClass) . ' has/have been successfully duplicated !';
+            $this->notifySuccess =  $this->notifySuccess = 'Your entry(ies) has/have been successfully duplicated !';
             $this->model = new $this->modelClass();
         } else {
             $this->notifyError = true;
