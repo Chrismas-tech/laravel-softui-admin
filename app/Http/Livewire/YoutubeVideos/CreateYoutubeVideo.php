@@ -3,13 +3,14 @@
 namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Actions\YoutubeVideos\CreateYoutubeVideo as CreateYoutubeVideoAction;
+use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class CreateYoutubeVideo extends Component
 {
     protected $paginationTheme = 'bootstrap';
-
+    use YoutubeVideosTrait;
     public string $videoName = '';
     public string $videoIframe = '';
     public bool $isValid = false;
@@ -17,16 +18,17 @@ class CreateYoutubeVideo extends Component
     public $messages = [
         'videoName.required' => 'This field is required.',
         'videoIframe.required' => 'This field is required.',
-        'videoIframe.regex' => 'Your Iframe must beginning by <iframe> and finish by </iframe>.',
+        'videoIframe.regex' => 'The Iframe is not correct, please copy it again directly from your Youtube video',
     ];
 
     public function rules()
     {
         return [
             'videoName' => 'required|string|min:3',
-            'videoIframe' => 'required|string|regex:/^<iframe[^<]*<\/iframe>$/',
+            'videoIframe' => 'required|string|regex:' . $this->regexIframe,
         ];
     }
+
 
     public function updated($propertyName)
     {

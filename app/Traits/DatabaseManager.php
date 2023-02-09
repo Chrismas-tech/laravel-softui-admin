@@ -20,6 +20,8 @@ trait DatabaseManager
     public bool $isValid = true;
     public bool $selectAll = true;
     public string $resultsPerPage = '5';
+    public bool $toggleOrderBy = true;
+    public string $orderBy = 'desc';
     public string $notifySuccess = '';
     public bool $notifyError = false;
 
@@ -68,6 +70,7 @@ trait DatabaseManager
     {
         if (DeleteEntries::run($this->modelClass, $this->selected)) {
             $this->notifySuccess = 'Your ' . str_replace('App\Models\\', '', $this->modelClass) . ' has/have been successfully updated !';
+            $this->model = new $this->modelClass();
         } else {
             $this->notifyError = true;
         }
@@ -80,6 +83,7 @@ trait DatabaseManager
     {
         if (UpdateEntry::run($this->model, $this->validate())) {
             $this->notifySuccess = 'Your ' . str_replace('App\Models\\', '', $this->modelClass) . ' has been successfully updated !';
+            $this->model = new $this->modelClass();
         } else {
             $this->notifyError = true;
         }
@@ -102,6 +106,7 @@ trait DatabaseManager
     {
         if (DuplicateEntry::run($this->model)) {
             $this->notifySuccess = 'Your ' . str_replace('App\Models\\', '', $this->modelClass) . ' has/have been successfully duplicated !';
+            $this->model = new $this->modelClass();
         } else {
             $this->notifyError = true;
         }

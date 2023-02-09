@@ -4,11 +4,14 @@ namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Models\YoutubeVideo;
 use App\Traits\DatabaseManager;
+use App\Traits\YoutubeVideos\YoutubeVideos as YoutubeVideosYoutubeVideos;
+use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Livewire\Component;
 
 class YoutubeVideos extends Component
 {
     use DatabaseManager;
+    use YoutubeVideosTrait;
     public string $modelName = '';
     public string $modelIframe = '';
     public string $modelId = '';
@@ -18,16 +21,17 @@ class YoutubeVideos extends Component
     public $messages = [
         'modelName.required' => 'This field is required.',
         'modelIframe.required' => 'This field is required.',
-        'modelIframe.regex' => 'Your Iframe must beginning by <iframe> and finish by </iframe>.',
+        'modelIframe.regex' => 'The Iframe is not correct, please copy it again directly from your Youtube video',
     ];
 
     public function rules()
     {
         return [
             'modelName' => 'required|string|min:3',
-            'modelIframe' => 'required|string|regex:/^<iframe[^<]*<\/iframe>$/',
+            'modelIframe' => 'required|string|regex:' . $this->regexIframe,
         ];
     }
+
 
     /**
      * This function cannot be deleted because it is used for update and duplicate entry
@@ -44,7 +48,7 @@ class YoutubeVideos extends Component
     public function render()
     {
         return view('livewire.youtube-videos.youtube-videos', [
-            'collectionPagination' => $this->modelClass::orderBy('created_at', 'desc')->paginate($this->resultsPerPage),
+            'collectionPagination' => $this->modelClass::orderBy('created_at', $this->orderBy)->paginate($this->resultsPerPage),
             'numberResults' => $this->modelClass::all()->count(),
         ]);
     }

@@ -1,8 +1,15 @@
 <div>
     <div class="table-responsive">
         @include('admin.layouts.collection-pagination')
-        <div class="pt-3 px-3 d-flex justify-content-between align-items-center">
+        <div class="mt-3 mb-3 px-3 d-flex justify-content-between align-items-center">
             <h5>{{ $numberResults }} result(s)</h5>
+            <div class="d-flex align-items-center text-sm">
+                <div class="me-2">Order By</div>
+                <select name="orderBy" class="form-control m-0" wire:model="orderBy">
+                    <option value="asc">Oldest to Newest</option>
+                    <option value="desc">Newest to Oldest</option>
+                </select>
+            </div>
             <div class="d-flex align-items-center text-sm">
                 <div class="me-2">Results Per Page</div>
                 <select name="resultsPerPage" class="form-control m-0" wire:model="resultsPerPage">
