@@ -20,7 +20,7 @@ class CreateYoutubeVideo extends Component
     public $messages = [
         'modelName.required' => 'This field is required.',
         'modelIframe.required' => 'This field is required.',
-        'modelIframe.regex' => 'The Iframe is not correct, please copy it again directly from your Youtube model',
+        'modelIframe.regex' => 'The Iframe is not correct, please copy it again directly from your Youtube video.',
     ];
 
     public function rules()
