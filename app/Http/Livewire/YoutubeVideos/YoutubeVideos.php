@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Models\YoutubeVideo;
-use App\Traits\DatabaseManager;
+use App\Traits\CrudManager\CrudManager;
 use Illuminate\Validation\ValidationException;
 use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +11,13 @@ use Livewire\Component;
 
 class YoutubeVideos extends Component
 {
-    use DatabaseManager;
+    use CrudManager;
     use YoutubeVideosTrait;
+    public YoutubeVideo $model;
+    public string $modelClass = YoutubeVideo::class;
     public string $modelName = '';
     public string $modelIframe = '';
     public string $modelId = '';
-    public string $modelClass = YoutubeVideo::class;
-    public YoutubeVideo $model;
     public array $columns;
     public int $nbGeneralSearchResults;
 
@@ -54,7 +54,6 @@ class YoutubeVideos extends Component
         $model = new $this->modelClass();
         $this->columns = Schema::getColumnListing($model->getTable());
     }
-
 
     /**
      * This function cannot be deleted because it is used for update and duplicate entry

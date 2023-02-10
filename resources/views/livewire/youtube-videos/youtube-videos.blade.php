@@ -13,8 +13,13 @@
 
         <div class="d-flex align-items-center">
             <button type="button"
-                class="btn {{ $selectAll ? 'bg-gradient-success' : 'bg-gradient-info' }} me-3  mb-0 d-flex align-items-center justify-content-center"
-                wire:click="toggleSelectAll"> <i class="fas fa-check me-2"></i>
+                class="btn {{ $selectAll ? 'bg-gradient-success' : 'bg-gradient-warning' }} me-3  mb-0 d-flex align-items-center justify-content-center"
+                wire:click="toggleSelectAll">
+                @if ($selectAll)
+                    <i class="fa fa-check me-2" aria-hidden="true"></i>
+                @else
+                    <i class="fa fa-window-close-o me-2" aria-hidden="true"></i>
+                @endif
                 {{ $selectAll ? 'Select All' : 'Deselect All' }}
             </button>
             @if ($DeleteButtonExist)
@@ -80,7 +85,7 @@
             <tbody>
                 @forelse ($collectionPagination as $video)
                     <tr>
-                        <td width="30%;">
+                        <td>
                             <div class="d-flex justify-content-center">
                                 <span class="badge bg-gradient-info mb-2">#{{ $video->id }}
                                     {{ $video->name }}</span>
@@ -89,7 +94,7 @@
                                 {!! $video->iframe !!}
                             </div>
                         </td>
-                        <td width="50%;">
+                        <td>
                             <div class="d-flex justify-content-center align-items-center">
                                 <div
                                     class="form-check form-switch d-flex justify-content-center align-items-center me-3">
@@ -98,9 +103,9 @@
                                         id="flexSwitchCheckDefault">
                                 </div>
                                 <button wire:click="editEntryModal({{ $video->id }})" type="button"
-                                    class="btn bg-gradient-info me-3 mb-0 mt-3 mb-3">Edit</button>
+                                    class="btn btn-outline-info me-3 mb-0 mt-3 mb-3">Edit</button>
                                 <button wire:click="duplicateEntryModal({{ $video->id }})" type="button"
-                                    class="btn bg-gradient-primary mb-0 mt-3 mb-3">Duplicate</button>
+                                    class="btn btn-outline-primary mb-0 mt-3 mb-3">Duplicate</button>
                             </div>
                         </td>
                     </tr>
