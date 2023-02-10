@@ -4,7 +4,7 @@ namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Actions\Database\CreateEntry;
 use App\Models\YoutubeVideo;
-use App\Traits\DatabaseManager;
+use App\Traits\CrudManager\CrudManager;
 use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -12,23 +12,22 @@ use Livewire\Component;
 class CreateYoutubeVideo extends Component
 {
     use YoutubeVideosTrait;
-    use DatabaseManager;
-    protected $paginationTheme = 'bootstrap';
-    public string $videoName = '';
-    public string $videoIframe = '';
+    use CrudManager;
+    public string $modelName = '';
+    public string $modelIframe = '';
     public bool $isValidCreation = false;
 
     public $messages = [
-        'videoName.required' => 'This field is required.',
-        'videoIframe.required' => 'This field is required.',
-        'videoIframe.regex' => 'The Iframe is not correct, please copy it again directly from your Youtube video',
+        'modelName.required' => 'This field is required.',
+        'modelIframe.required' => 'This field is required.',
+        'modelIframe.regex' => 'The Iframe is not correct, please copy it again directly from your Youtube model',
     ];
 
     public function rules()
     {
         return [
-            'videoName' => 'required|string|min:3',
-            'videoIframe' => 'required|string|regex:' . $this->regexIframe,
+            'modelName' => 'required|string|min:3',
+            'modelIframe' => 'required|string|regex:' . $this->regexIframe,
         ];
     }
 

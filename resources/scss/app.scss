@@ -30,7 +30,10 @@
 @import "soft-ui-dashboard/custom/styles";
 
 //Pages
-@import "pages/youtube-videos.scss";
+@import "pages/youtube-videos";
 
 //General Custom styles
 @import "styles.scss";
+
+//Font Awesome
+@import "@fortawesome/fontawesome-free/css/all.css";

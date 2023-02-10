@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                    <label class="form-label" for="videoName">Youtube Video Name</label>
-                    <input type="text" id="videoName" placeholder="Youtube Video name"
-                        class="form-control @error('videoName') is-invalid @enderror" wire:model="videoName">
-                    @error('videoName')
+                    <label class="form-label" for="modelName">Youtube Video Name</label>
+                    <input type="text" id="modelName" placeholder="Youtube Video name"
+                        class="form-control @error('modelName') is-invalid @enderror" wire:model="modelName">
+                    @error('modelName')
                         <span class="text-danger text-sm">{{ $message }}</span>
                     @enderror
                 </div>
@@ -19,8 +19,8 @@
                     <label class="form-label" for="iframe">Iframe Video</label>
                     <textarea rows="5" id="iframe"
                         placeholder="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/cvqGnIEmOyM&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in- picture; web-share&quot; allowfullscreen&gt;&lt;/iframe&gt;"
-                        class="form-control @error('videoIframe') is-invalid @enderror" wire:model="videoIframe"></textarea>
-                    @error('videoIframe')
+                        class="form-control @error('modelIframe') is-invalid @enderror" wire:model="modelIframe"></textarea>
+                    @error('modelIframe')
                         <span class="text-danger text-sm">{{ $message }}</span>
                     @enderror
                 </div>

@@ -23,7 +23,6 @@
     <!-- Font Awesome Icons -->
 
     <!-- Scripts -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
     <!-- Styles -->

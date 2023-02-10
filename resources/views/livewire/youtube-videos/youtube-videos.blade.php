@@ -10,25 +10,6 @@
             <i class="fa fa-plus me-2"></i>
             <span>Add a new Youtube Video</span>
         </a>
-
-        <div class="d-flex align-items-center">
-            <button type="button"
-                class="btn {{ $selectAll ? 'bg-gradient-success' : 'bg-gradient-warning' }} me-3  mb-0 d-flex align-items-center justify-content-center"
-                wire:click="toggleSelectAll">
-                @if ($selectAll)
-                    <i class="fa fa-check me-2" aria-hidden="true"></i>
-                @else
-                    <i class="fa fa-window-close-o me-2" aria-hidden="true"></i>
-                @endif
-                {{ $selectAll ? 'Select All' : 'Deselect All' }}
-            </button>
-            @if ($DeleteButtonExist)
-                <button type="button" class="btn bg-gradient-danger mb-0" wire:click="confirmDeletionSelected"
-                    wire:loading.attr="disabled"> <i class="fa fa-trash me-2"></i>Delete
-                    Selection
-                </button>
-            @endif
-        </div>
     </div>
 
     <div class="d-flex justify-content-between px-3 py-3 bg-light">
@@ -51,9 +32,9 @@
             <div class="d-flex align-items-center me-4 text-sm" style="cursor: pointer" wire:click="toggleOrderBy">
                 <span class="me-1" style="cursor: pointer">Order</span>
                 @if ($toggleOrderBy)
-                    <i title="Newest to Oldest" class="fas fa-2x fa-long-arrow-alt-up filter-arrows"></i>
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
                 @else
-                    <i title="Oldest to Newest" class="fas fa-2x fa-long-arrow-alt-down filter-arrows"></i>
+                    <i class="fa-solid fa-arrow-up-z-a"></i>
                 @endif
             </div>
 
@@ -77,8 +58,28 @@
                             <span class="me-1">Youtube Video</span>
                         </div>
                     </th>
-                    <th class="text-dark text-center font-weight-bolder opacity-7 ps-2">
-                        Actions
+                    <th
+                        class="d-flex align-items-center justify-content-between text-dark font-weight-bolder opacity-7">
+                        <span class="me-3">Actions</span>
+                        <div class="d-flex align-items-center">
+                            <button type="button"
+                                class="btn {{ $selectAll ? 'bg-gradient-success' : 'bg-gradient-warning me-3' }} mb-0 d-flex align-items-center justify-content-center"
+                                wire:click="toggleSelectAll">
+                                @if ($selectAll)
+                                    <i class="fa fa-check me-2" aria-hidden="true"></i>
+                                @else
+                                    <i class="fa-solid fa-check-double me-2"></i>
+                                @endif
+                                {{ $selectAll ? 'Select All' : 'Deselect All' }}
+                            </button>
+                            @if ($DeleteButtonExist)
+                                <button type="button" class="btn bg-gradient-danger mb-0"
+                                    wire:click="confirmDeletionSelected" wire:loading.attr="disabled"> <i
+                                        class="fa fa-trash me-2"></i>Delete
+                                    Selection
+                                </button>
+                            @endif
+                        </div>
                     </th>
                 </tr>
             </thead>
