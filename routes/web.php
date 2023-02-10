@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CrudBuilderController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::middleware([
         Route::prefix('youtube-videos')->group(function () {
             Route::get('/', [YoutubeVideoController::class, 'index'])->name('admin.youtube-videos.index');
             Route::get('/create', [YoutubeVideoController::class, 'create'])->name('admin.youtube-videos.create');
+        });
+
+        Route::prefix('crud-builder')->group(function () {
+            Route::get('/', [CrudBuilderController::class, 'index'])->name('admin.crud-builder.index');
         });
     });
 });
