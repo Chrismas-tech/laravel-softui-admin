@@ -33,27 +33,31 @@
             @foreach ($fieldsModel as $keyField => $arrayType)
                 @foreach ($arrayType as $index => $field)
                     <li class="d-flex align-items-center mt-2 mb-2" style="list-style: none;">
-                        <div class="me-3">
+                        <div class="me-3 d-flex">
                             <span
-                                class="badge
+                                class="badge me-2 d-flex align-items-center
                             @if ($keyField === 'bigInteger') badge-info @endif
                             @if ($keyField === 'string') badge-success @endif
                             @if ($keyField === 'bool') badge-primary @endif
                             ">{{ $keyField }}
                             </span>
                             /
-                            <span class="badge badge-secondary">{{ $field }}</span>
+                            <input type="text" class="ms-2 form-control form-control-sm" value="{{ $field }}">
                         </div>
-                        <button class="btn btn-outline-danger mb-0 px-2 py-1 me-5"
+                        <button class="btn bg-success-warning mb-0 px-2 py-1 me-2"
+                            wire:click="actualizeFieldModel('{{ $keyField }}', {{ $index }})">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                        <button class="btn bg-gradient-danger mb-0 px-2 py-1 me-5"
                             wire:click="removeFieldToModel('{{ $keyField }}', {{ $index }})">
                             <span>Remove</span>
                             <i class="fa-solid fa-trash ms-2" style="cursor: pointer;"></i>
                         </button>
                         <div>
-                            <i class="fa-regular fa-circle-up me-3" style="cursor: pointer;"
+                            <i class="fa-regular fa-2x fa-circle-up me-3" style="cursor: pointer;"
                                 wire:click="upIndex({{ $index }})"></i>
-                            <i class="fa-regular fa-circle-down" style="cursor: pointer;"
-                                wire:click="downfield({{ $index }})"></i>
+                            <i class="fa-regular fa-2x fa-circle-down" style="cursor: pointer;"
+                                wire:click="downIndex({{ $index }})"></i>
                         </div>
                     </li>
                 @endforeach

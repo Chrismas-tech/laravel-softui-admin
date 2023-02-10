@@ -8,7 +8,7 @@ use Livewire\Component;
 class AddFieldsModel extends Component
 {
     public string $fieldName;
-    public string $valueType = 'bigInteger';
+    public string $valueType = 'string';
     public array $fieldsModel = [];
     public int $index = 0;
     public bool $isValid;
@@ -48,24 +48,34 @@ class AddFieldsModel extends Component
 
     public function upIndex($index)
     {
-        $temp = $this->fieldsModel[$this->valueType][$index];
-
-        $arr = array_values($arr);
+        if (array_key_exists($index - 1, $this->fieldsModel[$this->valueType])) {
+            $temp = $this->fieldsModel[$this->valueType][$index];
+            $this->fieldsModel[$this->valueType][$index] = $this->fieldsModel[$this->valueType][$index - 1];
+            $this->fieldsModel[$this->valueType][$index - 1] = $temp;
+        }
     }
 
     public function downIndex($index)
     {
-        $temp = $this->fieldsModel[$this->valueType][$index];
-
-        $arr = array_values($arr);
+        if (array_key_exists($index + 1, $this->fieldsModel[$this->valueType])) {
+            $temp = $this->fieldsModel[$this->valueType][$index];
+            $this->fieldsModel[$this->valueType][$index] = $this->fieldsModel[$this->valueType][$index + 1];
+            $this->fieldsModel[$this->valueType][$index + 1] = $temp;
+        }
     }
 
     public function addFieldToModel()
     {
+        $this->validate();
         $this->fieldsModel[$this->valueType][$this->index] =  $this->fieldName;
         $this->index++;
         $this->fieldName = '';
         $this->isValid = false;
+    }
+
+    public function actualizeFieldModel($valueType, $index)
+    {
+        $this->fieldsModel[$this->valueType][$index] =  $this->fieldsModel[$this->valueType][$index];
     }
 
     public function removeFieldToModel($valueType, $index)
