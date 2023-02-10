@@ -5,6 +5,7 @@ namespace App\Http\Livewire\YoutubeVideos;
 use App\Actions\Database\CreateEntry;
 use App\Models\YoutubeVideo;
 use App\Traits\CrudManager\CrudManager;
+use App\Traits\CrudManager\Notifications\Notifications;
 use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -12,7 +13,7 @@ use Livewire\Component;
 class CreateYoutubeVideo extends Component
 {
     use YoutubeVideosTrait;
-    use CrudManager;
+    use Notifications;
     public string $modelName = '';
     public string $modelIframe = '';
     public bool $isValidCreation = false;
