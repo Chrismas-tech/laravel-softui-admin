@@ -17,7 +17,7 @@ trait Update
     public function updateEntry()
     {
         if (UpdateEntry::run($this->model, $this->validate())) {
-            $this->notifySuccess = 'Your ' . str_replace('App\Models\\', '', $this->modelClass) . ' has been successfully updated !';
+            $this->notifySuccess = 'Your entry has been successfully updated !';
             $this->model = new $this->modelClass();
         } else {
             $this->notifyError = true;

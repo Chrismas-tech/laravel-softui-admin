@@ -4,10 +4,12 @@
             wire:click="increment"><i class="fas fa-2x fa-plus-square me-2"></i>
             <span>Add a Formular</span>
         </button>
-        <button title="Remove Formular" class="d-flex align-items-center btn btn-outline-danger mb-0"
-            wire:click="decrement"><i class="fas fa-2x fa-minus-square me-2"></i>
-            <span>Remove a Formular</span>
-        </button>
+        @if ($nbForm > 1)
+            <button title="Remove Formular" class="d-flex align-items-center btn btn-outline-danger mb-0"
+                wire:click="decrement"><i class="fas fa-2x fa-minus-square me-2"></i>
+                <span>Remove a Formular</span>
+            </button>
+        @endif
     </div>
     @for ($i = 0; $i < $nbForm; $i++)
         <hr>
