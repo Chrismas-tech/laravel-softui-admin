@@ -1,7 +1,7 @@
 <div>
     @include('admin.layouts.collection-pagination')
     <div class="d-flex justify-content-center">
-        <h5>{{ $numberResults }} result(s)</h5>
+        <h5>{{ $numberResults }} result(s) found</h5>
     </div>
     @include('admin.layouts.notifications')
     <div class="d-flex justify-content-between align-items-center px-3 py-3">
@@ -18,7 +18,7 @@
                 class="form-control form-control form-lg @error('generalSearchTerm') is-invalid @enderror"
                 wire:model.debounce.400ms="generalSearchTerm" placeholder="Search something..." style="width:400px;">
             <div class="pl-3">
-                @if (!($nbGeneralSearchResults === $numberResults && $nbGeneralSearchResults !== 0))
+                @if (!($nbGeneralSearchResults === $numberResults || $nbGeneralSearchResults === 0))
                     <span class="text-dark text-xxs">{{ $nbGeneralSearchResults }} Result(s) for your search</span>
                 @endif
                 @error('generalSearchTerm')
