@@ -41,9 +41,9 @@ class YoutubeVideos extends Component
     {
         try {
             $this->validate();
-            $this->isValid = true;
+            $this->isValidEdit = true;
         } catch (ValidationException $ex) {
-            $this->isValid = false;
+            $this->isValidEdit = false;
         }
 
         $this->validateOnly($propertyName);

@@ -40,7 +40,7 @@
 
             <div class="d-flex align-items-center text-sm">
                 <div class="me-2">Results Per Page</div>
-                <select name="resultsPerPage" class="form-control m-0" wire:model="resultsPerPage">
+                <select name="resultsPerPage" class="form-control form-select m-0" wire:model="resultsPerPage">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="50">50</option>
@@ -150,7 +150,7 @@
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 
-            <button @if (!$isValid) disabled @endif type="button" class="btn btn-success"
+            <button @if (!$isValidEdit) disabled @endif type="button" class="btn btn-success"
                 wire:click="updateEntry({{ $modelId }})" wire:loading.attr="disabled">
                 <div wire:loading wire:target="updateEntry" class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Loading...</span>
