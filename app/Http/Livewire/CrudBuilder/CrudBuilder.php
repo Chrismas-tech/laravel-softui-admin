@@ -9,7 +9,6 @@ class CrudBuilder extends Component
 {
     public bool $isValid;
     public string $modelName;
-    public int $modelNbFields = 1;
 
     public $messages = [];
 

@@ -2,7 +2,7 @@
     <div class="d-flex">
         <div class="me-3">
             <label class="form-label" for="addField">Select type of value</label>
-            <select name="valueType" class="form-control form-control-sm w-100" wire:model="valueType">
+            <select class="form-control form-control-sm w-100" wire:model="typeField">
                 @forelse ($defaultValuesType as $value)
                     <option value="{{ $value }}">{{ $value }}</option>
                 @empty
@@ -23,45 +23,49 @@
     </div>
     <hr>
     <div class="d-flex justify-content-center mt-3 mb-3">
-        <button @if (!$isValid) disabled @endif class="btn bg-gradient-success mb-0 px-3 py-2"
+        <button @if (!$isValid) disabled @endif class="btn btn-success mb-0 px-3 py-2"
             wire:click="addFieldToModel"><i class="fa-solid fa-plus" style="cursor: pointer;"></i> Add Field / Enter
         </button>
     </div>
     <hr>
     <div>
         <pre>{{ var_dump($fieldsModel) }}</pre>
+        <p class="lead">
+            Your model Database
+        </p>
         <ul>
-            @foreach ($fieldsModel as $typeField => $arrayType)
-                @foreach ($arrayType as $index => $value)
-                    <li class="d-flex align-items-center mt-2 mb-2" style="list-style: none;">
-                        <div class="me-3 d-flex">
-                            <span
-                                class="badge me-2 d-flex align-items-center
-                            @if ($typeField === 'bigInteger') badge-info @endif
-                            @if ($typeField === 'string') badge-success @endif
-                            @if ($typeField === 'bool') badge-primary @endif
-                            ">{{ $typeField }}
-                            </span>
-                            /
-                            <input type="text" class="ms-2 form-control form-control-sm"
-                                wire:model="fieldsModel.{{ $typeField }}.{{ $index }}">
+            @foreach ($fieldsModel as $index => $valueFields)
+                {{--  <h1>{{ $valueFields[0] }} {{ $valueFields[1] }}</h1> --}}
+                <li
+                    class="d-flex align-items-center py-2 px-1 @if ($index % 2 === 0) bg-gradient-light @endif">
+                    <div class="me-2 d-flex">
+                        <span
+                            class="badge me-2 d-flex align-items-center
+                            @if ($valueFields[0] === 'bigInteger' || $valueFields[0] === 'integer') badge-info @endif
+                            @if ($valueFields[0] === 'string') badge-success @endif
+                            @if ($valueFields[0] === 'boolean') badge-primary @endif
+                            ">{{ $valueFields[0] }}
+                        </span>
+                        |
+                        <input type="text" class="ms-2 me-2 form-control form-control-sm"
+                            wire:model="fieldsModel.{{ $index }}.1">
+                        <div wire:loading wire:target="fieldsModel.{{ $index }}.1">
+                            <i class="fa-solid
+                            fa-arrows-rotate spinning"></i>
                         </div>
-                        <button class="btn bg-success-warning mb-0 px-2 py-1 me-2" wire:click=>
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                        </button>
-                        <button class="btn bg-gradient-danger mb-0 px-2 py-1 me-5"
-                            wire:click="removeFieldToModel('{{ $typeField }}', {{ $index }})">
-                            <span>Remove</span>
-                            <i class="fa-solid fa-trash ms-2" style="cursor: pointer;"></i>
-                        </button>
-                        <div>
-                            <i class="fa-regular fa-2x fa-circle-up me-3" style="cursor: pointer;"
-                                wire:click="upIndex({{ $index }})"></i>
-                            <i class="fa-regular fa-2x fa-circle-down" style="cursor: pointer;"
-                                wire:click="downIndex({{ $index }})"></i>
-                        </div>
-                    </li>
-                @endforeach
+                    </div>
+
+                    <button class="btn bg-gradient-danger mb-0 px-2 py-2 me-3"
+                        wire:click="removeFieldToModel('{{ $index }}')">
+                        <i class="fa-solid fa-trash" style="cursor: pointer;"></i>
+                    </button>
+                    <div>
+                        <i class="fa-regular text-secondary fa-circle-up me-1" style="cursor: pointer;"
+                            wire:click="upIndex({{ $index }})"></i>
+                        <i class="fa-regular text-secondary fa-circle-down" style="cursor: pointer;"
+                            wire:click="downIndex({{ $index }})"></i>
+                    </div>
+                </li>
             @endforeach
         </ul>
     </div>

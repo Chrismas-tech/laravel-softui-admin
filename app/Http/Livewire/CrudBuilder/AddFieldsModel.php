@@ -49,47 +49,40 @@ class AddFieldsModel extends Component
 
     public function upIndex($index)
     {
-        if (array_key_exists($index - 1, $this->fieldsModel[$this->typeField])) {
-            $temp = $this->fieldsModel[$this->typeField][$index];
-            $this->fieldsModel[$this->typeField][$index] = $this->fieldsModel[$this->typeField][$index - 1];
-            $this->fieldsModel[$this->typeField][$index - 1] = $temp;
+        if (array_key_exists($index - 1, $this->fieldsModel)) {
+            $temp = $this->fieldsModel[$index];
+            $this->fieldsModel[$index] = $this->fieldsModel[$index - 1];
+            $this->fieldsModel[$index - 1] = $temp;
         }
-    }
-
-    public function inputArray()
-    {
-        dd('test');
     }
 
     public function downIndex($index)
     {
-        if (array_key_exists($index + 1, $this->fieldsModel[$this->typeField])) {
-            $temp = $this->fieldsModel[$this->typeField][$index];
-            $this->fieldsModel[$this->typeField][$index] = $this->fieldsModel[$this->typeField][$index + 1];
-            $this->fieldsModel[$this->typeField][$index + 1] = $temp;
+        if (array_key_exists($index + 1, $this->fieldsModel)) {
+            $temp = $this->fieldsModel[$index];
+            $this->fieldsModel[$index] = $this->fieldsModel[$index + 1];
+            $this->fieldsModel[$index + 1] = $temp;
         }
     }
 
     public function addFieldToModel()
     {
         $this->validate();
-        $this->fieldsModel[$this->typeField][$this->index] =  $this->fieldName;
-        $this->index++;
+        $this->fieldsModel[] = [$this->typeField, $this->fieldName];
         $this->fieldName = '';
         $this->isValid = false;
     }
 
     public function actualizeFieldModel($typeField, $index)
     {
-        /*  dd($typeField, $index); */
         $this->fieldsModel[$typeField][$index] =  $this->fieldsModel[$typeField][$index];
     }
 
-    public function removeFieldToModel($typeField, $index)
+    public function removeFieldToModel($indexType)
     {
-        unset($this->fieldsModel[$typeField][$index]);
-        if (empty($this->fieldsModel[$typeField])) {
-            unset($this->fieldsModel[$typeField]);
+        unset($this->fieldsModel[$indexType]);
+        if (empty($this->fieldsModel[$indexType])) {
+            unset($this->fieldsModel[$indexType]);
         }
     }
 
@@ -98,6 +91,7 @@ class AddFieldsModel extends Component
         return [
             'fieldName' => 'required|string|min:3',
             'typeField' => 'required|string',
+            'fieldsModel.' . $this->typeField . '.*.' . $this->fieldName => 'string|min:3',
         ];
     }
 
