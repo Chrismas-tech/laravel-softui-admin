@@ -29,27 +29,28 @@
     </div>
     <hr>
     <div>
+        <pre>{{ var_dump($fieldsModel) }}</pre>
         <ul>
-            @foreach ($fieldsModel as $keyField => $arrayType)
-                @foreach ($arrayType as $index => $field)
+            @foreach ($fieldsModel as $typeField => $arrayType)
+                @foreach ($arrayType as $index => $value)
                     <li class="d-flex align-items-center mt-2 mb-2" style="list-style: none;">
                         <div class="me-3 d-flex">
                             <span
                                 class="badge me-2 d-flex align-items-center
-                            @if ($keyField === 'bigInteger') badge-info @endif
-                            @if ($keyField === 'string') badge-success @endif
-                            @if ($keyField === 'bool') badge-primary @endif
-                            ">{{ $keyField }}
+                            @if ($typeField === 'bigInteger') badge-info @endif
+                            @if ($typeField === 'string') badge-success @endif
+                            @if ($typeField === 'bool') badge-primary @endif
+                            ">{{ $typeField }}
                             </span>
                             /
-                            <input type="text" class="ms-2 form-control form-control-sm" value="{{ $field }}">
+                            <input type="text" class="ms-2 form-control form-control-sm"
+                                wire:model="fieldsModel.{{ $typeField }}.{{ $index }}">
                         </div>
-                        <button class="btn bg-success-warning mb-0 px-2 py-1 me-2"
-                            wire:click="actualizeFieldModel('{{ $keyField }}', {{ $index }})">
+                        <button class="btn bg-success-warning mb-0 px-2 py-1 me-2" wire:click=>
                             <i class="fa-solid fa-arrows-rotate"></i>
                         </button>
                         <button class="btn bg-gradient-danger mb-0 px-2 py-1 me-5"
-                            wire:click="removeFieldToModel('{{ $keyField }}', {{ $index }})">
+                            wire:click="removeFieldToModel('{{ $typeField }}', {{ $index }})">
                             <span>Remove</span>
                             <i class="fa-solid fa-trash ms-2" style="cursor: pointer;"></i>
                         </button>

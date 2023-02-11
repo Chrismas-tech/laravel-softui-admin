@@ -7,8 +7,9 @@ use Livewire\Component;
 
 class AddFieldsModel extends Component
 {
+    protected $listeners = ['actualizeField' => 'actualizeFieldModel'];
     public string $fieldName;
-    public string $valueType = 'string';
+    public string $typeField = 'string';
     public array $fieldsModel = [];
     public int $index = 0;
     public bool $isValid;
@@ -48,41 +49,47 @@ class AddFieldsModel extends Component
 
     public function upIndex($index)
     {
-        if (array_key_exists($index - 1, $this->fieldsModel[$this->valueType])) {
-            $temp = $this->fieldsModel[$this->valueType][$index];
-            $this->fieldsModel[$this->valueType][$index] = $this->fieldsModel[$this->valueType][$index - 1];
-            $this->fieldsModel[$this->valueType][$index - 1] = $temp;
+        if (array_key_exists($index - 1, $this->fieldsModel[$this->typeField])) {
+            $temp = $this->fieldsModel[$this->typeField][$index];
+            $this->fieldsModel[$this->typeField][$index] = $this->fieldsModel[$this->typeField][$index - 1];
+            $this->fieldsModel[$this->typeField][$index - 1] = $temp;
         }
+    }
+
+    public function inputArray()
+    {
+        dd('test');
     }
 
     public function downIndex($index)
     {
-        if (array_key_exists($index + 1, $this->fieldsModel[$this->valueType])) {
-            $temp = $this->fieldsModel[$this->valueType][$index];
-            $this->fieldsModel[$this->valueType][$index] = $this->fieldsModel[$this->valueType][$index + 1];
-            $this->fieldsModel[$this->valueType][$index + 1] = $temp;
+        if (array_key_exists($index + 1, $this->fieldsModel[$this->typeField])) {
+            $temp = $this->fieldsModel[$this->typeField][$index];
+            $this->fieldsModel[$this->typeField][$index] = $this->fieldsModel[$this->typeField][$index + 1];
+            $this->fieldsModel[$this->typeField][$index + 1] = $temp;
         }
     }
 
     public function addFieldToModel()
     {
         $this->validate();
-        $this->fieldsModel[$this->valueType][$this->index] =  $this->fieldName;
+        $this->fieldsModel[$this->typeField][$this->index] =  $this->fieldName;
         $this->index++;
         $this->fieldName = '';
         $this->isValid = false;
     }
 
-    public function actualizeFieldModel($valueType, $index)
+    public function actualizeFieldModel($typeField, $index)
     {
-        $this->fieldsModel[$this->valueType][$index] =  $this->fieldsModel[$this->valueType][$index];
+        /*  dd($typeField, $index); */
+        $this->fieldsModel[$typeField][$index] =  $this->fieldsModel[$typeField][$index];
     }
 
-    public function removeFieldToModel($valueType, $index)
+    public function removeFieldToModel($typeField, $index)
     {
-        unset($this->fieldsModel[$valueType][$index]);
-        if (empty($this->fieldsModel[$valueType])) {
-            unset($this->fieldsModel[$valueType]);
+        unset($this->fieldsModel[$typeField][$index]);
+        if (empty($this->fieldsModel[$typeField])) {
+            unset($this->fieldsModel[$typeField]);
         }
     }
 
@@ -90,7 +97,7 @@ class AddFieldsModel extends Component
     {
         return [
             'fieldName' => 'required|string|min:3',
-            'valueType' => 'required|string',
+            'typeField' => 'required|string',
         ];
     }
 
