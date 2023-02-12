@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class AddFieldsModel extends Component
 {
-    protected $listeners = ['actualizeField' => 'actualizeFieldModel'];
     public string $fieldName;
     public string $typeField = 'string';
     public array $fieldsModel = [];
@@ -47,6 +46,29 @@ class AddFieldsModel extends Component
         'unsigned'
     ];
 
+    public function rules()
+    {
+        return [
+            'fieldName' => 'required|string|min:3',
+            'typeField' => 'required|string',
+        ];
+    }
+
+    public function addFieldToModel()
+    {
+        $this->fieldsModel[] = [$this->typeField, $this->fieldName];
+        $this->fieldName = '';
+        $this->isValid = false;
+    }
+
+    public function removeFieldToModel($indexType)
+    {
+        unset($this->fieldsModel[$indexType]);
+        if (empty($this->fieldsModel[$indexType])) {
+            unset($this->fieldsModel[$indexType]);
+        }
+    }
+
     public function upIndex($index)
     {
         if (array_key_exists($index - 1, $this->fieldsModel)) {
@@ -65,37 +87,12 @@ class AddFieldsModel extends Component
         }
     }
 
-    public function addFieldToModel()
-    {
-        $this->validate();
-        $this->fieldsModel[] = [$this->typeField, $this->fieldName];
-        $this->fieldName = '';
-        $this->isValid = false;
-    }
-
     public function actualizeFieldModel($typeField, $index)
     {
         $this->fieldsModel[$typeField][$index] =  $this->fieldsModel[$typeField][$index];
     }
 
-    public function removeFieldToModel($indexType)
-    {
-        unset($this->fieldsModel[$indexType]);
-        if (empty($this->fieldsModel[$indexType])) {
-            unset($this->fieldsModel[$indexType]);
-        }
-    }
-
-    public function rules()
-    {
-        return [
-            'fieldName' => 'required|string|min:3',
-            'typeField' => 'required|string',
-            'fieldsModel.' . $this->typeField . '.*.' . $this->fieldName => 'string|min:3',
-        ];
-    }
-
-    public function updated($propertyName)
+    public function updated()
     {
         try {
             $this->validate();
@@ -103,12 +100,11 @@ class AddFieldsModel extends Component
         } catch (ValidationException $ex) {
             $this->isValid = false;
         }
-
-        $this->validateOnly($propertyName);
     }
 
     public function render()
     {
+        $this->emit('fieldsModelArray', $this->fieldsModel);
         return view(
             'livewire.crud-builder.add-field-model',
             [

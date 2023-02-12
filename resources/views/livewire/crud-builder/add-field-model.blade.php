@@ -29,7 +29,7 @@
     </div>
     <hr>
     <div>
-        <pre>{{ var_dump($fieldsModel) }}</pre>
+       {{--  <pre>{{ var_dump($fieldsModel) }}</pre> --}}
         <p class="lead">
             Your model Database
         </p>

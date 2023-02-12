@@ -43,3 +43,5 @@ Route::middleware([
         });
     });
 });
+
+include('./CrudManager/routes.php');
