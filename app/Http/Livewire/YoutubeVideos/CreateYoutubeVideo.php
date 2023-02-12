@@ -4,7 +4,6 @@ namespace App\Http\Livewire\YoutubeVideos;
 
 use App\Actions\Database\CreateEntry;
 use App\Models\YoutubeVideo;
-use App\Traits\CrudManager\CrudManager;
 use App\Traits\CrudManager\Notifications\Notifications;
 use App\Traits\YoutubeVideos\YoutubeVideosTrait;
 use Illuminate\Validation\ValidationException;

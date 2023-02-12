@@ -45,6 +45,13 @@ class AddFieldsModel extends Component
         'default',
         'unsigned'
     ];
+    public array $checkboxFieldsDefault = [
+        'nullable',
+        'unique',
+        'unsigned',
+        'default'
+    ];
+    public array $checkboxFieldsChoices = [];
 
     public function rules()
     {
@@ -112,10 +119,7 @@ class AddFieldsModel extends Component
     {
         $this->emit('fieldsModelArray', $this->fieldsModel);
         return view(
-            'livewire.crud-builder.add-field-model',
-            [
-                'fieldsModel' => $this->fieldsModel,
-            ]
+            'livewire.crud-builder.add-field-model'
         );
     }
 }

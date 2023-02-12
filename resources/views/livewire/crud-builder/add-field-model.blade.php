@@ -1,6 +1,6 @@
 <div>
-    <div class="d-flex">
-        <div class="me-3">
+    <div class="row">
+        <div class="col-6">
             <label class="form-label" for="addField">Select type of value</label>
             <select class="form-control form-control-sm w-100" wire:model="typeField">
                 @forelse ($defaultValuesType as $value)
@@ -9,9 +9,9 @@
                 @endforelse
             </select>
         </div>
-        <div class="me-3">
+        <div class="col-6">
             <label class="form-label" for="fieldName">Name of field</label>
-            <input style="min-width:300px;" type="text" id="fieldName" placeholder="Name of field"
+            <input type="text" id="fieldName" placeholder="Name of field"
                 class="form-control form-control-sm @error('fieldName') is-invalid @enderror" wire:model="fieldName"
                 wire:keydown.enter="addFieldToModel">
             <div>
@@ -21,15 +21,28 @@
             </div>
         </div>
     </div>
-    <hr>
+
+    <div class="mt-4 mb-4 d-flex flex-wrap">
+        @foreach ($checkboxFieldsDefault as $key => $checkbox)
+            <div class="form-check form-switch me-3">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault{{ $key }}"
+                    wire:model="checkboxFieldsChoices" value={{ $checkbox }}>
+                <label class="form-check-label"
+                    for="flexSwitchCheckDefault{{ $key }}">{{ $checkbox }}</label>
+            </div>
+        @endforeach
+    </div>
+
+
     <div class="d-flex justify-content-center mt-3 mb-3">
         <button @if (!$isValid) disabled @endif class="btn btn-success mb-0 px-3 py-2"
             wire:click="addFieldToModel"><i class="fa-solid fa-plus" style="cursor: pointer;"></i> Add Field / Enter
         </button>
     </div>
+    <pre>{{ var_dump($checkboxFieldsChoices) }}</pre>
     <hr>
     <div>
-       {{--  <pre>{{ var_dump($fieldsModel) }}</pre> --}}
+        {{--  <pre>{{ var_dump($fieldsModel) }}</pre> --}}
         <p class="lead">
             Your model Database
         </p>

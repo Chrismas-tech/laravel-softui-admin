@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 class CrudManager
 {
     public string $modelName;
+    public string $controllerName;
     public array $fieldsModel;
     public string $refRoutes = '## References Routes';
     public string $refUses = '## References Use';
@@ -16,13 +17,16 @@ class CrudManager
     {
         $this->fieldsModel = $fieldsModel;
         $this->modelName = $modelName;
+        $this->controllerName = ucfirst($this->modelName) . 'Controller';
     }
 
     public function create()
     {
         $this->createNewModel(ucfirst($this->modelName));
+        $this->createMigration();
+        $this->runMigration();
         $this->createNewController(ucfirst($this->modelName));
-        /* $this->webRoutes(); */
+        $this->crudWebRoutes($this->modelName);
         dd('finish');
     }
 
@@ -33,10 +37,10 @@ class CrudManager
 
         // Check if the file already exists
         if (File::exists($filePath)) {
-            return response('Model already exists', 400);
-        }
-        // Create the Model file and write to it
-        File::put($filePath, <<<EOT
+            return abort(505, 'The model already exists !');
+        } else {
+            // Create the Model file and write to it
+            File::put($filePath, <<<EOT
         <?php
 
         namespace App\Models;
@@ -44,50 +48,52 @@ class CrudManager
         use Illuminate\Database\Eloquent\Factories\HasFactory;
         use Illuminate\Database\Eloquent\Model;
 
-        class {$modelName} extends Model
+        class $modelName extends Model
         {
             use HasFactory;
 
             protected \$guarded = [];
         }
         EOT);
-
-        return response('Model created', 200);
+        }
     }
 
-    public function createNewController($controllerName)
+    public function createNewController()
     {
         // Define the file path and name
-        $filePath = app_path('Http/Controllers/' . $controllerName . 'Controller.php');
+        $filePath = app_path('Http/Controllers/' . $this->controllerName . '.php');
+
+        $modelName = $this->modelName . 's';
 
         // Create the controller file and write to it
-        File::put($filePath, <<<EOT
+        File::put(
+            $filePath,
+            <<<EOT
         <?php
         namespace App\Http\Controllers;
 
-        class $controllerName extends Controller
+        class $this->controllerName extends Controller
         {
             public function index()
             {
-                return view('admin.pages.$controllerName"."s.index');
+                return view('admin.pages.$modelName.index');
             }
 
             public function create()
             {
-                return view('admin.pages.$controllerName.create');
+                return view('admin.pages.$modelName.create');
             }
         }
         EOT
         );
-        return response('Controller created', 200);
     }
 
-    public function webRoutes()
+    public function crudWebRoutes()
     {
+        /* dd('test 1'); */
         $this->createCrudRoutesFolderAndFile();
         $this->includeCrudRoutesWeb();
         $this->writeNewRoutesWeb($this->modelName);
-        $this->createMigrations($this->modelName);
     }
 
     public function createCrudRoutesFolderAndFile()
@@ -106,7 +112,7 @@ class CrudManager
             $code = <<<EOT
             <?php
 
-            {$this->refUses}
+            $this->refUses
             use Illuminate\Support\Facades\Route;
 
             Route::middleware([
@@ -115,7 +121,7 @@ class CrudManager
                 'verified',
             ])->group(function () {
                 Route::prefix('admin')->group(function () {
-                    {$this->refRoutes}
+                    $this->refRoutes
                 });
             });
             EOT;
@@ -143,47 +149,104 @@ class CrudManager
         }
     }
 
-    public function writeNewRoutesWeb($modelName)
+    public function writeNewRoutesWeb()
     {
         $filePath = base_path('routes/CrudManager/routes.php');
         $contents = file_get_contents($filePath);
         $searchTerm = $this->refRoutes;
-        $modelNameCapitalized = ucfirst($modelName);
+        $modelNameCapitalized = ucfirst($this->modelName);
 
-        $ControllerExist = app_path('Http/Controllers/ArticleController');
 
-        // Check if the file already exists
-        if (File::exists($ControllerExist)) {
-            return response('Controller already exists', 400);
-        }
-
-        if (!$filePath) {
-            $newContent = <<<EOT
-            \n\t\tRoute::get('/', [{$modelNameCapitalized}Controller::class, 'index'])->name('admin.{$modelName}s.index');
-            \t\tRoute::get('/create',  [{$modelNameCapitalized}Controller::class, 'index'])->name('admin.{$modelName}.create');
+        $newContent = <<<EOT
+            \n\t\tRoute::get('/', [{$modelNameCapitalized}Controller::class, 'index'])->name('admin.{$this->modelName}s.index');
+            \t\tRoute::get('/create',  [{$modelNameCapitalized}Controller::class, 'index'])->name('admin.{$this->modelName}.create');
             EOT;
 
-            $pos = strpos($contents, $searchTerm);
+        $pos = strpos($contents, $searchTerm);
 
-            if ($pos) {
-                // Split the string into two parts
-                $before = substr($contents, 0, $pos + strlen($searchTerm));
-                $after = substr($contents, $pos + strlen($searchTerm));
+        if ($pos) {
+            // Split the string into two parts
+            $before = substr($contents, 0, $pos + strlen($searchTerm));
+            $after = substr($contents, $pos + strlen($searchTerm));
 
-                // Insert the new phrase after the search term
-                $before .= $newContent;
+            // Insert the new phrase after the search term
+            $before .= $newContent;
 
-                // Concatenate the two parts back together
-                $newContent = $before . $after;
+            // Concatenate the two parts back together
+            $newContent = $before . $after;
 
-                // Write the modified contents back to the file
-                file_put_contents($filePath, $newContent);
-            }
+            // Write the modified contents back to the file
+            file_put_contents($filePath, $newContent);
         }
     }
 
-    public function createMigrations()
+    public function createMigration()
     {
-        Artisan::call('make:migration create_' . $this->modelName . 's_table ' . $this->modelName);
+
+        foreach ($this->fieldsModel as $field) {
+        }
+
+        // Set the name of the table to create
+        $tableName = $this->modelName . 's';
+
+        // Get the current date and time in the format of "Y_m_d_His"
+        $timestamp = date('Y_m_d_His');
+
+        // Combine the parts to create the migration file name
+        $fileName = $timestamp . '_create_' . $tableName . '_table.php';
+
+        // Create the full path for the new migration file
+        $filePath = database_path('migrations/' . $fileName);
+
+        // Define the content of the migration file
+        $content = <<<EOD
+        <?php
+
+        use Illuminate\Database\Migrations\Migration;
+        use Illuminate\Database\Schema\Blueprint;
+        use Illuminate\Support\Facades\Schema;
+
+        return new class extends Migration
+        {
+            /**
+             * Run the migrations.
+             *
+             * @return void
+             */
+            public function up()
+            {
+                Schema::create('$tableName', function (Blueprint \$table) {
+                    \$table->id();
+        EOD;
+
+        foreach ($this->fieldsModel as $field) {
+            $content .= <<<EOD
+                        \n\t\t\t\$table->$field[0]('$field[1]');
+                    EOD;
+        }
+        $content .= <<<EOD
+                    \n\t\t\t\$table->timestamps();
+                });
+            }
+
+            /**
+             * Reverse the migrations.
+             *
+             * @return void
+             */
+            public function down()
+            {
+                Schema::dropIfExists('$tableName');
+            }
+        };
+        EOD;
+
+        // Write the new migration file to the migrations directory
+        file_put_contents($filePath, $content);
+    }
+
+    public function runMigration()
+    {
+        Artisan::call('migrate');
     }
 }
