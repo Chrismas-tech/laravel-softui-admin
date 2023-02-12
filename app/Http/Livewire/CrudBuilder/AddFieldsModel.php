@@ -56,9 +56,14 @@ class AddFieldsModel extends Component
 
     public function addFieldToModel()
     {
-        $this->fieldsModel[] = [$this->typeField, $this->fieldName];
-        $this->fieldName = '';
-        $this->isValid = false;
+        try {
+            $this->validate();
+            $this->isValid = true;
+            $this->fieldsModel[] = [$this->typeField, $this->fieldName];
+            $this->fieldName = '';
+        } catch (ValidationException $ex) {
+            $this->isValid = false;
+        }
     }
 
     public function removeFieldToModel($indexType)
@@ -67,6 +72,7 @@ class AddFieldsModel extends Component
         if (empty($this->fieldsModel[$indexType])) {
             unset($this->fieldsModel[$indexType]);
         }
+        $this->fieldsModel = array_values($this->fieldsModel);
     }
 
     public function upIndex($index)
