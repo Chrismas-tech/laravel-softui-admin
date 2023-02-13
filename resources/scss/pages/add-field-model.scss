@@ -5,10 +5,19 @@ ul {
 
 .fa-circle-up,
 .fa-circle-down {
+    cursor: pointer;
     transition: transform 0.3s ease-in-out;
     &:hover {
-        transform: scale(1.3);
+        transform: scale(1.6);
     }
+}
+
+.bg-my-gray {
+    background-color: #bac1d0 !important;
+}
+
+.bg-my-gray-lighter {
+    background-color: #eceef2 !important;
 }
 
 @keyframes spin {
@@ -22,5 +31,5 @@ ul {
 
   /* Apply the animation to an element */
   .spinning {
-    animation: spin 2s linear infinite;
+    animation: spin 0.5s linear infinite;
   }

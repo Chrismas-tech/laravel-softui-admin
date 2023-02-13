@@ -221,7 +221,7 @@ class CrudManager
 
         foreach ($this->fieldsModel as $field) {
             $content .= <<<EOD
-                        \n\t\t\t\$table->$field[0]('$field[1]');
+                        \n\t\t\t\$table->$field[1]('$field[2]');
                     EOD;
         }
         $content .= <<<EOD
