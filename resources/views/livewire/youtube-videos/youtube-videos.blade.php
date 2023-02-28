@@ -63,7 +63,7 @@
                         <span class="me-3">Actions</span>
                         <div class="d-flex align-items-center">
                             <button type="button"
-                                class="btn {{ $selectAll ? 'bg-gradient-success' : 'bg-gradient-warning me-3' }} mb-0 d-flex align-items-center justify-content-center"
+                                class="btn {{ count($selected) ? 'me-3' : '' }} {{ $selectAll ? 'bg-gradient-success' : 'bg-gradient-warning me-3' }} mb-0 d-flex align-items-center justify-content-center"
                                 wire:click="toggleSelectAll">
                                 @if ($selectAll)
                                     <i class="fa fa-check me-2" aria-hidden="true"></i>

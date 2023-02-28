@@ -22,4 +22,6 @@ trait CrudManager
     public string $resultsPerPage = '5';
     public bool $isValidEdit = true;
     public string $generalSearchTerm = '';
+    public array $columns;
+    public int $nbGeneralSearchResults;
 }

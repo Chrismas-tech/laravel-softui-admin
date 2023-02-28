@@ -11,9 +11,6 @@ class CreateEntry
 
     public function handle(Model $model, array $attributes)
     {
-        return $model::create([
-            'name' => $attributes['modelName'],
-            'iframe' => $attributes['modelIframe'],
-        ]);
+        return $model::create($attributes);
     }
 }

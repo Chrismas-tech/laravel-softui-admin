@@ -11,9 +11,6 @@ class UpdateEntry
 
     public function handle(Model $model, array $attributes)
     {
-        return $model->update([
-            'name' => $attributes['modelName'],
-            'iframe' => $attributes['modelIframe'],
-        ]);
+        return $model->update($attributes);
     }
 }
