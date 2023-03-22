@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlbumPhotoController;
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;
@@ -33,6 +34,10 @@ Route::middleware([
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+
+        Route::prefix('download-file')->group(function () {
+            Route::get('/{file}', [DownloadFileController::class, 'download'])->name('admin.download-file');
+        });
 
         Route::prefix('youtube-videos')->group(function () {
             Route::get('/', [YoutubeVideoController::class, 'index'])->name('admin.youtube-videos.index');

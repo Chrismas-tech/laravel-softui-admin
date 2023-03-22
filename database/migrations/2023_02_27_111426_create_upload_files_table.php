@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('upload_files', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
-            $table->string('file_path');
-            $table->string('file_size');
             $table->string('folder_path');
+            $table->string('file_path');
             $table->string('file_type');
-            $table->bigInteger('visibility');
+            $table->string('file_size');
+            $table->string('visibility');
             $table->timestamps();
         });
     }
