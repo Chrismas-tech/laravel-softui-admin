@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\AlbumPhotos;
 
+use App\Models\AlbumPhoto;
 use Livewire\Component;
 use App\Models\UploadFile;
 use App\Traits\CrudManager\CrudManager;
@@ -14,10 +15,12 @@ class ShowAlbumPhoto extends Component
     public Collection $collection;
     public UploadFile $model;
     public string $modelClass = UploadFile::class;
+    public AlbumPhoto $album;
     public string $name = '';
     public string $albumName;
     public int $albumId;
     public string $modelId = '';
+    protected $listeners = ['reRenderParent' => '$refresh'];
 
     public $messages = [
         'name.required' => 'This field is required.',
@@ -46,8 +49,10 @@ class ShowAlbumPhoto extends Component
     public function mount($album, $files)
     {
         $this->collection = $files;
+        $this->album = $album;
         $this->albumName = $album->name;
         $this->albumId = $album->id;
+        $this->orderByColumn = 'id';
     }
 
     /**
@@ -64,15 +69,8 @@ class ShowAlbumPhoto extends Component
     public function render()
     {
         $q = $this->modelClass::query();
-        if ($this->generalSearchTerm) {
-            $q->where(function ($query) {
-                foreach ($this->columns as $value) {
-                    $query->orWhere($value, 'like', '%' . strtolower($this->generalSearchTerm) . '%');
-                }
-            });
-        }
         $this->nbGeneralSearchResults = $q->count();
-        $q = $q->orderBy('created_at', $this->orderBy)->paginate($this->resultsPerPage);
+        $q = $q->orderBy('id', $this->orderBy)->paginate($this->resultsPerPage);
 
         return view('livewire.album-photos.show-album-photo', [
             'collectionPagination' => $q,

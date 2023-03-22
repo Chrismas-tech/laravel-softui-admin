@@ -7,10 +7,12 @@ use App\Traits\CrudManager\Delete\Delete;
 use App\Traits\CrudManager\Notifications\Notifications;
 use App\Traits\CrudManager\Toggles\Toggles;
 use App\Traits\CrudManager\Update\Update;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 trait CrudManager
 {
+    use WithFileUploads;
     use WithPagination;
     use Update;
     use Delete;

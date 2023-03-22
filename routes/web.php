@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlbumPhotoController;
+use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,10 @@ Route::middleware([
             Route::get('/', [AlbumPhotoController::class, 'index'])->name('admin.album-photos.index');
             Route::get('/create', [AlbumPhotoController::class, 'create'])->name('admin.album-photo.create');
             Route::get('/album-photo/{id}', [AlbumPhotoController::class, 'show'])->name('admin.album-photo.show');
+        });
+
+        Route::prefix('library')->group(function () {
+            Route::get('/', [LibraryController::class, 'index'])->name('admin.library.index');
         });
     });
 });

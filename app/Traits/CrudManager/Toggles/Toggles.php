@@ -8,6 +8,7 @@ trait Toggles
     public array $selected = [];
     public bool $selectAll = true;
     public string $orderBy = 'desc';
+    public string $orderByColumn = 'created_at';
 
     public function toggleOrderBy()
     {

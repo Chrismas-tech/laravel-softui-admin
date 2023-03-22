@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('file_name');
             $table->string('file_path');
+            $table->string('file_size');
+            $table->string('folder_path');
             $table->string('file_type');
-            $table->string('model_class_name');
-            $table->unsignedBigInteger('model_id');
+            $table->bigInteger('visibility');
             $table->timestamps();
         });
     }
