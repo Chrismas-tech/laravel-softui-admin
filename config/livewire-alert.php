@@ -7,7 +7,8 @@
 return [
     'alert' => [
         'position' => 'top-end',
-        'timer' => 3000,
+        'width' => 600,
+        'timer' => 4000,
         'toast' => true,
         'text' => null,
         'showCancelButton' => false,

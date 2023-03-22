@@ -30,12 +30,19 @@
         </div>
     </form>
 
-    <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-        x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-        x-on:livewire-upload-progress="progress = $event.detail.progress">
+    @if ($progress > 0 && $progress < 99)
         <!-- Progress Bar -->
-        <div x-show="isUploading">
-            <progress max="100" x-bind:value="progress"></progress>
+        <div class="progress-wrapper mt-3 mb-3">
+            <div class="progress-info">
+                <div class="progress-percentage">
+                    <span class="text-sm font-weight-bold">{{ $progress }}%</span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0"
+                    aria-valuemax="100" style="width: {{ $progress }}%;"></div>
+            </div>
         </div>
-    </div>
+        <!-- Progress Bar -->
+    @endif
 </div>

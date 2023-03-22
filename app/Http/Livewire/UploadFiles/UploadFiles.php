@@ -121,7 +121,7 @@ class UploadFiles extends Component
                 $fileSize,
                 $folderPath,
                 $fileType,
-                'private'
+                0,
             )) {
                 $this->alert('success', 'Your files has/have been successfully uploaded !');
             } else {
@@ -131,7 +131,7 @@ class UploadFiles extends Component
             $this->progress += 100 / count($this->files);
         }
         $this->files = [];
-        $this->render();
+        $this->emit('refreshDatatable');
     }
 
     public function render()

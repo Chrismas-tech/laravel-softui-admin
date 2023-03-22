@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('file_path');
             $table->string('file_type');
             $table->string('file_size');
-            $table->string('visibility');
+            $table->boolean('visibility')->comment('0 = private, 1 = public');
             $table->timestamps();
         });
     }
