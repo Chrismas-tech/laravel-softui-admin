@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Actions\Database;
+namespace App\Actions\Database\YoutubeVideos;
 
 use App\Models\YoutubeVideo;
-use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class DuplicateYoutubeVideo
@@ -12,6 +11,13 @@ class DuplicateYoutubeVideo
 
     public function handle(array $attributes)
     {
-        return  YoutubeVideo::whereIn('id', $attributes)->replicate()->save();
+        $youtubeVideos = YoutubeVideo::whereIn('id', $attributes)->get();
+
+        foreach ($youtubeVideos as $youtubeVideo) {
+            $duplicate = $youtubeVideo->replicate();
+            $duplicate->save();
+        }
+
+        return true;
     }
 }

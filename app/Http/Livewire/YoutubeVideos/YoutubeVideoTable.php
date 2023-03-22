@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\YoutubeVideos;
 
-use App\Actions\Database\DuplicateYoutubeVideo;
+use App\Actions\Database\YoutubeVideos\DuplicateYoutubeVideo;
 use App\Actions\Database\YoutubeVideos\DeleteYoutubeVideo;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
