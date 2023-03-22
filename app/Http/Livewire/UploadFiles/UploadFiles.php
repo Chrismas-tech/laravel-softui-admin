@@ -23,6 +23,7 @@ class UploadFiles extends Component
     public $files = [];
     public string $acceptString;
     public string $extensionsString;
+    public string $defaultStorePath = 'private/uploads';
     public array $extensions = [
         'jpeg',
         'jpg',
@@ -82,11 +83,6 @@ class UploadFiles extends Component
         $this->extensionsString = $extensionStringList;
     }
 
-    public function resetFiles()
-    {
-        $this->files = [];
-    }
-
     public function updated()
     {
         try {
@@ -111,7 +107,7 @@ class UploadFiles extends Component
         foreach ($this->files as $file) {
             $filePath = $file->store('private/uploads');
             $fileSize = round($file->getSize() / 1024, 2);
-            $folderPath = 'private/uploads';
+            $folderPath = $this->defaultStorePath;
             $fileName = $file->getClientOriginalName();
             $fileType = $file->getClientOriginalExtension();
 

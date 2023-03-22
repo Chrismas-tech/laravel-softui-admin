@@ -11,7 +11,7 @@
     <form wire:submit.prevent="upload" enctype="multipart/form-data">
         <div class="form-group mb-0">
             <h5>Select your files</h5>
-            <input wire:click="resetFiles" wire:model="files" type="file" class="form-control" id="files" multiple
+            <input wire:model="files" type="file" class="form-control"
                 accept="{{ $acceptString }}">
         </div>
         <div>
