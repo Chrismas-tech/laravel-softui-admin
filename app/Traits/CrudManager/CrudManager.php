@@ -18,7 +18,7 @@ trait CrudManager
     use Delete;
     use Duplicate;
     use Toggles;
-    use Notifications;
+
 
     protected $paginationTheme = 'bootstrap';
     public string $resultsPerPage = '5';

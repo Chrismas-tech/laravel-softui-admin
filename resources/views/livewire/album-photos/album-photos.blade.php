@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
         <h5>{{ $numberResults }} result(s) found</h5>
     </div>
-    @include('admin.layouts.notifications')
+
 
     <livewire:album-photos.create-album-photo>
 

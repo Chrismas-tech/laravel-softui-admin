@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    @include('admin.layouts.notifications')
+
 
     <div class="d-flex justify-content-between px-3 py-3 bg-light">
         <div>

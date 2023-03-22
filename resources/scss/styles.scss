@@ -41,6 +41,10 @@
     margin-right: 10px;
 }
 
-select[name="resultsPerPage"] {
-    min-width: 100px;
+#perPage {
+    width: 90px !important;
+}
+
+.btn {
+    margin-bottom: 0 !important;
 }

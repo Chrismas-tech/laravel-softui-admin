@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class CreateAlbumPhoto extends Component
 {
-    use Notifications;
+
     public string $name = '';
     public bool $isValidCreation = false;
 
