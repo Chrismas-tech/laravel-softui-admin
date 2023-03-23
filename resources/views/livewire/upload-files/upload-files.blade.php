@@ -5,13 +5,13 @@
         <li class="list-group-item"><strong>Specifications</strong></li>
         <li class="list-group-item">Number of files per upload : {{ $NbFiles }}</li>
         <li class="list-group-item">Limit of size per file : {{ $limitSizePerFile }} {{ $unit }}</li>
-        <li class="list-group-item">Extension accepted : {{ str_replace(',', ', ', $extensionsString) }}</li>
+        <li class="list-group-item">Extension allowed : {{ str_replace(',', ', ', $extensionsString) }}</li>
     </ul>
 
     <form wire:submit.prevent="upload" enctype="multipart/form-data">
         <div class="form-group mb-0">
             <h5>Select your files</h5>
-            <input wire:model="files" type="file" class="form-control"
+            <input wire:model="files" type="file" class="form-control" multiple
                 accept="{{ $acceptString }}">
         </div>
         <div>

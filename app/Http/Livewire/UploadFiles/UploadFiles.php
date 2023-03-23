@@ -16,11 +16,11 @@ class UploadFiles extends Component
 
     public int $ratioToMegaBytes = 1048;
     public int $NbFiles = 10;
-    public int $limitSizePerFile = 20; //mo
+    public int $limitSizePerFile = 300; //mo
     public string $unit = ' mo';
     public int $progress = 0;
     public bool $isValid = false;
-    public $files = [];
+    public $files = []; // We cannot type hint array, don't know why
     public string $acceptString;
     public string $extensionsString;
     public string $defaultStorePath = 'private/uploads';
@@ -35,14 +35,14 @@ class UploadFiles extends Component
         'csv',
         'mp3',
         'wav',
-        'mp4'
+        'mp4',
     ];
 
     public function rules()
     {
         return [
             'files' => 'max:' . $this->NbFiles,
-            'files.*' => 'max:' . $this->limitSizePerFile * $this->ratioToMegaBytes . '|mimes:' . $this->extensionsString,
+            'files.*' => 'file|required|max:' . $this->limitSizePerFile * $this->ratioToMegaBytes . '|mimes:' . $this->extensionsString,
         ];
     }
 
@@ -56,16 +56,19 @@ class UploadFiles extends Component
 
     public function mount()
     {
+        /*   phpinfo(); */
         $this->getAcceptString();
         $this->getExtensionString();
     }
 
     private function getAcceptString()
     {
-        $acceptList = array_map(function ($ext) {
+        /* $acceptList = array_map(function ($ext) {
             return '.' . trim($ext);
         }, $this->extensions);
-        $this->acceptString = implode(',', $acceptList);
+        $this->acceptString = implode(',', $acceptList); */
+
+        $this->acceptString = '*';
     }
 
     private function getExtensionString()
@@ -83,7 +86,9 @@ class UploadFiles extends Component
         $this->extensionsString = $extensionStringList;
     }
 
-    public function updated()
+    // dd('updated', $propertyName, $this->files);
+
+    public function updatedFiles()
     {
         try {
             $this->validate();
@@ -91,18 +96,14 @@ class UploadFiles extends Component
         } catch (ValidationException $ex) {
             $this->isValid = false;
         }
-        $this->validate();
-    }
 
-    private function createUploadFilesDirectory()
-    {
-        CreateFolder::run(storage_path('app/private/uploads/'));
+        $this->validate();
     }
 
     public function upload()
     {
         $this->progress = 0;
-        $this->createUploadFilesDirectory();
+        CreateFolder::run(storage_path('app/private/uploads/'));
 
         foreach ($this->files as $file) {
             $filePath = $file->store('private/uploads');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Database\Files\DownloadFile;
 use App\Models\UploadFile;
+use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class DownloadFileController extends Controller
@@ -18,6 +19,8 @@ class DownloadFileController extends Controller
             $this->alert('error', 'This file does not exist ! An error occured !');
         }
 
-        return response()->file($path);
+        return Storage::download($file->file_path, $file->file_name, [
+            'Content-Type' => 'application/octet-stream',
+        ]);
     }
 }
