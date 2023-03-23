@@ -22,6 +22,12 @@
         <span>{{ $value }}</span>
         <i class="fa-solid fa-download ms-2"></i>
     </a>
+@elseif ($row->file_type === 'mp4')
+    <a title="download" class="w-100 d-block" href="{{ route('admin.download-file', $row->id) }}">
+        <i class="fa-solid fa-video me-2 text-dark"></i>
+        <span>{{ $value }}</span>
+        <i class="fa-solid fa-download ms-2"></i>
+    </a>
 @elseif ($row->file_type === 'png' || $row->file_type === 'jpeg' || $row->file_type === 'jpg')
     <a title="download" class="w-100 d-block" href="{{ route('admin.download-file', $row->id) }}">
         <i class="fa-solid fa-image fa-2x me-2 text-warning"></i>
