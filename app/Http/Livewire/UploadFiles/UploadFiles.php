@@ -85,8 +85,6 @@ class UploadFiles extends Component
         $this->extensionsString = $extensionStringList;
     }
 
-    // dd('updated', $propertyName, $this->files);
-
     public function updatedFiles()
     {
         try {
@@ -120,8 +118,7 @@ class UploadFiles extends Component
                 $filePath,
                 $fileSize,
                 $folderPath,
-                $fileType,
-                0,
+                $fileType
             )) {
                 $this->alert('success', 'Your files has/have been successfully uploaded !');
             } else {
@@ -130,6 +127,7 @@ class UploadFiles extends Component
 
             $this->progress += 100 / count($this->files);
         }
+
         $this->files = [];
         $this->emit('refreshDatatable');
     }

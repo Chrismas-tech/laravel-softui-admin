@@ -16,7 +16,7 @@ class StoreUploadFiles
         string $fileSize,
         string $folderPath,
         string $fileType,
-        int $visibility
+        int $visibility = 0
     ) {
         return UploadFile::create([
             'file_name' => $fileName,

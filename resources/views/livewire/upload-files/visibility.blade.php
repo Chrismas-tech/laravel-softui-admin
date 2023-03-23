@@ -4,6 +4,6 @@
     </div>
     <div class="form-check form-switch me-3">
         <input type="checkbox" class="form-check-input" wire:click="updateVisibility({{ $row->id }})"
-            {{ $value === true  ? 'checked' : '' }} id="flexSwitchCheckDefault">
+            {{ $value === 1  ? 'checked' : '' }} id="flexSwitchCheckDefault">
     </div>
 </div>

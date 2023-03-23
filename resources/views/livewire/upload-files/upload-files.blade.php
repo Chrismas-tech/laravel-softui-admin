@@ -11,8 +11,7 @@
     <form wire:submit.prevent="upload" enctype="multipart/form-data">
         <div class="form-group mb-0">
             <h5>Select your files</h5>
-            <input wire:model="files" type="file" class="form-control" multiple
-                accept="{{ $acceptString }}">
+            <input wire:model="files" type="file" class="form-control" multiple accept="{{ $acceptString }}">
         </div>
         <div>
             @error('files')
@@ -30,8 +29,8 @@
         </div>
     </form>
 
+    <!-- Progress Bar -->
     @if ($progress > 0 && $progress < 99)
-        <!-- Progress Bar -->
         <div class="progress-wrapper mt-3 mb-3">
             <div class="progress-info">
                 <div class="progress-percentage">
@@ -39,10 +38,10 @@
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0"
-                    aria-valuemax="100" style="width: {{ $progress }}%;"></div>
+                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $progress }}"
+                    aria-valuemin="0" aria-valuemax="100" style="width: {{ $progress }}%;"></div>
             </div>
         </div>
-        <!-- Progress Bar -->
     @endif
+    <!-- Progress Bar -->
 </div>
