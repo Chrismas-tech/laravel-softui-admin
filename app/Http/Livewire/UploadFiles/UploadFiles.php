@@ -23,7 +23,6 @@ class UploadFiles extends Component
     public $files = []; // We cannot type hint array, don't know why
     public string $acceptString;
     public string $extensionsString;
-    public string $defaultStorePath = 'private/uploads';
     public array $extensions = [
         'jpeg',
         'jpg',
@@ -103,14 +102,18 @@ class UploadFiles extends Component
     public function upload()
     {
         $this->progress = 0;
-        CreateFolder::run(storage_path('app/private/uploads/'));
+
+        foreach ($this->extensions as $ext) {
+            CreateFolder::run(storage_path('app/private/uploads/' . $ext . '/'));
+        }
 
         foreach ($this->files as $file) {
-            $filePath = $file->store('private/uploads');
-            $fileSize = round($file->getSize() / 1024, 2);
-            $folderPath = $this->defaultStorePath;
+
             $fileName = $file->getClientOriginalName();
             $fileType = $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('private/uploads/' . $fileType, $fileName);
+            $fileSize = round($file->getSize() / 1024, 2);
+            $folderPath = 'private/uploads/' . $fileType . '/';
 
             if (StoreUploadFiles::run(
                 $fileName,
