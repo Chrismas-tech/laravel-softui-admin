@@ -15,7 +15,7 @@
             <div class="relative">
 
                 <!-- Release Files -->
-                <div x-show="isDropping" class="absolute release-files bg-success">
+                <div x-cloak x-show="isDropping" class="absolute release-files bg-success">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="text-3xl text-white">Release file to upload</div>
                     </div>
@@ -31,7 +31,7 @@
                         class="form-control" multiple accept="{{ $acceptString }}">
 
                     <!-- ProgressBar -->
-                    <div x-show="isUploading" class="progress-wrapper mt-3">
+                    <div x-cloak x-show="isUploading" class="progress-wrapper mt-3">
                         <div class="progress-info">
                             <div class="progress-percentage">
                                 <span class="text-sm font-weight-bold"></span>
