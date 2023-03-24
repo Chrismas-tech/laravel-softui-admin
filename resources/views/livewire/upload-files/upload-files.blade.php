@@ -14,14 +14,6 @@
 
             <div class="relative">
 
-                <!-- Release Files -->
-                <div x-ocloak x-show="isDropping" class="absolute release-files bg-success">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-3xl text-white">Release file to upload</div>
-                    </div>
-                </div>
-                <!-- Release Files -->
-
                 <label class="m-0 w-100" for="files-upload">
                     <div class="card-body text-center select-files-upload">
                         <h5 class="me-2 mb-0">Select your files</h5>
@@ -44,16 +36,25 @@
                     <div x-show="isUploading" class="progress-wrapper mt-3">
                         <div class="progress-info">
                             <div class="progress-percentage">
-                                <span class="text-sm font-weight-bold">60%</span>
+                                <span class="text-sm font-weight-bold"></span>
                             </div>
                         </div>
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuemin="0"
                                 aria-valuemax="100" :style="`width: ${progress}%;`"></div>
                         </div>
                     </div>
                     <!-- ProgressBar -->
                 </label>
+
+
+                <!-- Release Files -->
+                <div x-ocloak x-show="isDropping" class="absolute release-files bg-success">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-3xl text-white">Release file to upload</div>
+                    </div>
+                </div>
+                <!-- Release Files -->
             </div>
         </div>
 
@@ -63,11 +64,18 @@
                     <li class="list-unstyled">
                         - <i class="fa-regular fa-file-lines"></i>
                         <span> {{ $file->getClientOriginalName() }}</span>
-                        <i class="ms-3 fa-solid fa-xmark text-danger cancel-upload-files"></i>
+                        <i class="ms-3 fa-solid fa-xmark text-danger cancel-upload-files"
+                            @click="removeUpload('{{ $file->getFilename() }}')"></i>
                     </li>
                 @endforeach
             </ul>
         @endif
+
+        <div class="d-flex
+                            justify-content-center">
+            <button {{ $isValid && count($files) ? '' : 'disabled' }} type="submit" wire:click="upload"
+                class="btn btn-primary mt-3">Upload</button>
+        </div>
     </div>
 
     <script>
@@ -98,10 +106,15 @@
                             console.log('error', error)
                         },
                         function(event) { //upload progress was made
-                            $this.progress = event.detail.progress
+                            $this.progress = event.detail.progress;
+                            document.querySelector('.progress-percentage span').innerHTML = event.detail.progress +
+                                ' %';
                         }
                     )
-                }
+                },
+                removeUpload(filename) {
+                    @this.removeUpload('files', filename)
+                },
             }
         }
     </script>
