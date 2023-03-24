@@ -2,7 +2,6 @@
 
 namespace App\Actions\Database\Files;
 
-use App\Models\UploadFile;
 use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -10,13 +9,12 @@ class DeleteFiles
 {
     use AsAction;
 
-    public function handle(array $attributes)
+    public function handle(array $filesPath)
     {
-        $files = UploadFile::whereIn('id', $attributes)->get();
-
-        foreach ($files as $file) {
-            Storage::delete($file->file_path);
-            $file->delete();
+        foreach ($filesPath as $filePath) {
+            if (Storage::exists($filePath)) {
+                Storage::delete($filePath);
+            }
         }
 
         return true;

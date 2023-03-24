@@ -21,12 +21,12 @@
                     </div>
                     <input class="d-none" wire:model="files" @change="handleFileSelect" type="file" id="files-upload"
                         class="form-control" multiple accept="{{ $acceptString }}">
-                    <div>
+                    <div class="mt-1">
                         @error('files')
                             <span class="text-danger text-sm">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div>
+                    <div class="mt-1">
                         @error('files.*')
                             <span class="text-danger text-sm">{{ $message }}</span>
                         @enderror
@@ -71,10 +71,9 @@
             </ul>
         @endif
 
-        <div class="d-flex
-                            justify-content-center">
+        <div class="d-flex justify-content-center">
             <button {{ $isValid && count($files) ? '' : 'disabled' }} type="submit" wire:click="upload"
-                class="btn btn-primary mt-3">Upload</button>
+                class="btn btn-primary mt-2">Upload</button>
         </div>
     </div>
 

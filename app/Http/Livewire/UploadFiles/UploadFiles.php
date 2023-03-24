@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\UploadFiles;
 
+use App\Actions\Database\Files\DeleteFiles;
 use App\Actions\Database\Folders\CreateFolder;
-use App\Actions\Database\Files\StoreUploadfiles;
+use App\Actions\Database\UploadFiles\StoreUploadfiles;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -122,6 +123,7 @@ class UploadFiles extends Component
             } else {
                 $this->alert('error', 'An error occured !');
             }
+            DeleteFiles::run(['livewire-tmp/' . $file->getFileName()]);
         }
 
         $this->files = [];

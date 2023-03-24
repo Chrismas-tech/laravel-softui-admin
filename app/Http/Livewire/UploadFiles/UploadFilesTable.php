@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\UploadFiles;
 
-use App\Actions\Database\Files\DeleteFiles;
-use App\Actions\Database\Files\DuplicateFiles;
-use App\Actions\Database\Files\UpdateVisibility;
+use App\Actions\Database\UploadFiles\DeleteUploadFiles;
+use App\Actions\Database\UploadFiles\UpdateUploadFileVisibility;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\UploadFile;
@@ -31,7 +30,7 @@ class UploadFilesTable extends DataTableComponent
 
     public function delete()
     {
-        if (DeleteFiles::run($this->getSelected())) {
+        if (DeleteUploadFiles::run($this->getSelected())) {
             $this->alert('success', 'Your file(s) has/have been successfully deleted !');
         } else {
             $this->alert('error', 'An error occured !');
@@ -47,7 +46,7 @@ class UploadFilesTable extends DataTableComponent
 
     public function updateVisibility($id)
     {
-        UpdateVisibility::run($id);
+        UpdateUploadFileVisibility::run($id);
     }
 
     public function refreshDatatable()
