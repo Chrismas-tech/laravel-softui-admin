@@ -15,10 +15,9 @@ class UploadFiles extends Component
     use WithFileUploads;
 
     public int $ratioToMegaBytes = 1048;
-    public int $NbFiles = 10;
+    public int $NbFiles = 20;
     public int $limitSizePerFile = 300; //mo
     public string $unit = ' mo';
-    public int $progress = 0;
     public bool $isValid = false;
     public $files = []; // We cannot type hint array, don't know why
     public string $acceptString;
@@ -62,10 +61,10 @@ class UploadFiles extends Component
 
     private function getAcceptString()
     {
-        /* $acceptList = array_map(function ($ext) {
+        $acceptList = array_map(function ($ext) {
             return '.' . trim($ext);
         }, $this->extensions);
-        $this->acceptString = implode(',', $acceptList); */
+        $this->acceptString = implode(',', $acceptList);
 
         $this->acceptString = '*';
     }
@@ -99,7 +98,6 @@ class UploadFiles extends Component
 
     public function upload()
     {
-        $this->progress = 0;
 
         foreach ($this->extensions as $ext) {
             CreateFolder::run(storage_path('app/private/uploads/' . $ext . '/'));
@@ -124,8 +122,6 @@ class UploadFiles extends Component
             } else {
                 $this->alert('error', 'An error occured !');
             }
-
-            $this->progress += 100 / count($this->files);
         }
 
         $this->files = [];

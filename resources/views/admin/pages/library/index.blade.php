@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid py-4">
         <div class="card p-4">
-            <div class="mb-4">
+            <div class="mb-2">
                 <livewire:upload-files.upload-files />
             </div>
             <hr>
