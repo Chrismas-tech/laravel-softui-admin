@@ -29,16 +29,6 @@
                     </div>
                     <input class="d-none" wire:model="files" @change="handleFileSelect" type="file" id="files-upload"
                         class="form-control" multiple accept="{{ $acceptString }}">
-                    <div class="mt-1">
-                        @error('files')
-                            <span class="text-danger text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mt-1">
-                        @error('files.*')
-                            <span class="text-danger text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
 
                     <!-- ProgressBar -->
                     <div x-show="isUploading" class="progress-wrapper mt-3">
@@ -54,6 +44,17 @@
                     </div>
                     <!-- ProgressBar -->
                 </label>
+
+                <div class="mt-1">
+                    @error('files')
+                        <span class="text-danger text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mt-1">
+                    @error('files.*')
+                        <span class="text-danger text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
         </div>
 
