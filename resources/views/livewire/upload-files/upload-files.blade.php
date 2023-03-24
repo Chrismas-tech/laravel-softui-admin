@@ -9,8 +9,8 @@
     </ul>
 
     <div x-data="fileUpload()">
-        <div x-on:drop="isDropping = false" x-on:drop.prevent="handleFileDrop($event)"
-            x-on:dragover.prevent="isDropping = true" x-on:dragleave.prevent="isDropping = false">
+        <div @drop.prevent="isDropping = false; handleFileDrop($event)" @dragover.prevent="isDropping = true"
+            @dragleave.prevent="isDropping = false">
 
             <div class="relative">
 
@@ -65,7 +65,7 @@
                         - <i class="fa-regular fa-file-lines"></i>
                         <span> {{ $file->getClientOriginalName() }}</span>
                         <i class="ms-3 fa-solid fa-xmark text-danger cancel-upload-files"
-                            @click="removeUpload('{{ $file->getFilename() }}')"></i>
+                            wire:click="removeUpload('{{ $file->getFilename() }}')"></i>
                     </li>
                 @endforeach
             </ul>

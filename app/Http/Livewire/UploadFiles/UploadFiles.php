@@ -57,6 +57,7 @@ class UploadFiles extends Component
     {
         $this->getAcceptString();
         $this->getExtensionString();
+        //Erase temporary files in livewire-tmp
         DeleteFilesInFolder::run(storage_path('app/livewire-tmp'));
     }
 
@@ -93,7 +94,6 @@ class UploadFiles extends Component
         } catch (ValidationException $ex) {
             $this->isValid = false;
         }
-
         $this->validate();
     }
 
@@ -127,6 +127,15 @@ class UploadFiles extends Component
 
         $this->files = [];
         $this->emit('refreshDatatable');
+    }
+
+    public function removeUpload($fileName)
+    {
+        foreach ($this->files as $key => $file) {
+            if ($fileName === $file->getFilename()) {
+                unset($this->files[$key]);
+            }
+        }
     }
 
     public function render()
