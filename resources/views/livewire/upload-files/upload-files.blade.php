@@ -22,7 +22,7 @@
                 </div>
                 <!-- Release Files -->
 
-                <div class="w-100" for="files-upload">
+                <label class="m-0 w-100" for="files-upload">
                     <div class="card-body text-center select-files-upload">
                         <h5 class="mb-0">Select your files</h5>
                         <span>(or drag them here)</span>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <!-- ProgressBar -->
-                </div>
+                </label>
             </div>
         </div>
 
