@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\UploadFiles;
 
 use App\Actions\Database\Files\DeleteFiles;
+use App\Actions\Database\Files\DeleteFilesInFolder;
 use App\Actions\Database\Folders\CreateFolder;
 use App\Actions\Database\UploadFiles\StoreUploadfiles;
 use Illuminate\Validation\ValidationException;
@@ -48,16 +49,16 @@ class UploadFiles extends Component
     public function messages()
     {
         return [
-            'files.*.max' => 'The :attribute file must not be greater than ' . $this->limitSizePerFile . ' mo.',
+            'files.*.max' => 'One of your file does not respect the limitation size of ' . $this->limitSizePerFile . ' mo.',
             'files.max' => 'Number of files must not be exceed :max .',
         ];
     }
 
     public function mount()
     {
-        /*   phpinfo(); */
         $this->getAcceptString();
         $this->getExtensionString();
+        DeleteFilesInFolder::run(storage_path('app/livewire-tmp'));
     }
 
     private function getAcceptString()
@@ -123,7 +124,6 @@ class UploadFiles extends Component
             } else {
                 $this->alert('error', 'An error occured !');
             }
-            DeleteFiles::run(['livewire-tmp/' . $file->getFileName()]);
         }
 
         $this->files = [];
