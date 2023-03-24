@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\UploadFiles;
 
-use App\Actions\Database\Files\DeleteFiles;
 use App\Actions\Database\Files\DeleteFilesInFolder;
 use App\Actions\Database\Folders\CreateFolder;
 use App\Actions\Database\UploadFiles\StoreUploadfiles;
@@ -17,7 +16,7 @@ class UploadFiles extends Component
     use WithFileUploads;
 
     public int $ratioToMegaBytes = 1048;
-    public int $NbFiles = 4;
+    public int $NbFiles = 5;
     public int $limitSizePerFile = 5; //mo
     public string $unit = ' mo';
     public bool $isValid = false;

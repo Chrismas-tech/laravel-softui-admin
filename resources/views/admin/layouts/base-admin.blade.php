@@ -45,8 +45,8 @@
     <!-- Fixed Plugin -->
 
     @stack('modals')
-    @livewireScripts
     @include('admin.layouts.scripts.scripts')
+    @livewireScripts
 </body>
 
 </html>

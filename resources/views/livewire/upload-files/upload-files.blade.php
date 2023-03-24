@@ -15,7 +15,7 @@
             <div class="relative">
 
                 <!-- Release Files -->
-                <div x-ocloak x-show="isDropping" class="absolute release-files bg-success">
+                <div x-show="isDropping" class="absolute release-files bg-success">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="text-3xl text-white">Release file to upload</div>
                     </div>

@@ -35,12 +35,6 @@
     right: 10px;
 }
 
-.preview-image {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
-
 #perPage {
     width: 90px !important;
 }
@@ -49,29 +43,6 @@
     margin-bottom: 0 !important;
 }
 
-.select-files-upload {
-    border: dashed 4px;
-    cursor: pointer;
-    &:hover {
-        background: #ececec;
-    }
-}
-
-.cancel-upload-files {
-    cursor: pointer;
-}
-
 ul {
     padding: 0 !important;
-}
-
-.release-files {
-    pointer-events: none;
-    border: dashed 4px #59930e;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    opacity:0.9;
 }
