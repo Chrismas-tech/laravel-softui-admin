@@ -14,9 +14,17 @@
 
             <div class="relative">
 
-                <label class="m-0 w-100" for="files-upload">
+                <!-- Release Files -->
+                <div x-ocloak x-show="isDropping" class="absolute release-files bg-success">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-3xl text-white">Release file to upload</div>
+                    </div>
+                </div>
+                <!-- Release Files -->
+
+                <div class="w-100" for="files-upload">
                     <div class="card-body text-center select-files-upload">
-                        <h5 class="me-2 mb-0">Select your files</h5>
+                        <h5 class="mb-0">Select your files</h5>
                         <span>(or drag them here)</span>
                     </div>
                     <input class="d-none" wire:model="files" @change="handleFileSelect" type="file" id="files-upload"
@@ -45,16 +53,7 @@
                         </div>
                     </div>
                     <!-- ProgressBar -->
-                </label>
-
-
-                <!-- Release Files -->
-                <div x-ocloak x-show="isDropping" class="absolute release-files bg-success">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-3xl text-white">Release file to upload</div>
-                    </div>
                 </div>
-                <!-- Release Files -->
             </div>
         </div>
 

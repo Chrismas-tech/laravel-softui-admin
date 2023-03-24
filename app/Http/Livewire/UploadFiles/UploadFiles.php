@@ -16,8 +16,8 @@ class UploadFiles extends Component
     use WithFileUploads;
 
     public int $ratioToMegaBytes = 1048;
-    public int $NbFiles = 20;
-    public int $limitSizePerFile = 300; //mo
+    public int $NbFiles = 4;
+    public int $limitSizePerFile = 5; //mo
     public string $unit = ' mo';
     public bool $isValid = false;
     public $files = []; // We cannot type hint array, don't know why
