@@ -94,7 +94,6 @@
                     }
                 },
                 uploadFiles(files) {
-                    console.log('{{ $errors }}');
                     const $this = this
                     this.isUploading = true
                     @this.uploadMultiple('files', files,
