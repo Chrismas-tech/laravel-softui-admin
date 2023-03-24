@@ -44,18 +44,18 @@
                     </div>
                     <!-- ProgressBar -->
                 </label>
-
-                <div class="mt-1">
-                    @error('files')
-                        <span class="text-danger text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mt-1">
-                    @error('files.*')
-                        <span class="text-danger text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
             </div>
+        </div>
+
+        <div class="mt-1">
+            @error('files')
+                <span class="text-danger text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mt-1">
+            @error('files.*')
+                <span class="text-danger text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
         @if (count($files))

@@ -136,6 +136,7 @@ class UploadFiles extends Component
                 unset($this->files[$key]);
             }
         }
+        $this->validate();
     }
 
     public function render()
