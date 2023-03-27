@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerAccountController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;

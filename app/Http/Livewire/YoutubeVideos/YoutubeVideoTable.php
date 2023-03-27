@@ -39,13 +39,30 @@ class YoutubeVideoTable extends DataTableComponent
                 ->sortable()
                 ->searchable()
                 ->view('livewire.youtube-videos.iframe'),
+
+        ];
+    }
+
+    public function addColumn()
+    {
+        return [
+            'edit' => view('livewire.edit-user'),
         ];
     }
 
     public array $bulkActions = [
         'delete' => 'Delete',
         'duplicate' => 'Duplicate',
+        'edit' => 'Edit',
     ];
+
+    public function edit()
+    {
+        if (count($this->getSelected()) === 1) {
+        } else {
+            $this->alert('error', 'Your must select one entry maximum !');
+        }
+    }
 
     public function delete()
     {

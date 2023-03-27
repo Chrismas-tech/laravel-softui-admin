@@ -70,9 +70,9 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <img class="rounded-circle" width="32" height="32"
-                                    src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->lastname }}" />
                             @else
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->lastname }}
 
                                 <svg class="ms-2" width="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                     fill="currentColor">

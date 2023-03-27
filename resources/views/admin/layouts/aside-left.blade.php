@@ -40,6 +40,17 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() === 'admin.users.index' ? 'active' : '' }}"
+                    href="{{ route('admin.users.index') }}">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-users text-warning {{ Route::currentRouteName() === 'admin.users.index' ? 'text-white' : 'text-dark' }}"
+                            width="12px" height="12px"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Customers</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'admin.profile' ? 'active' : '' }}"
                     href="{{ route('admin.profile') }}">
                     <div
@@ -91,6 +102,7 @@
                     <span class="nav-link-text ms-1">Youtube Videos</span>
                 </a>
             </li>
+            {{--
             <li class="nav-item">
                 <a class="nav-link  " href="../pages/billing.html">
                     <div
@@ -118,7 +130,7 @@
                     <span class="nav-link-text ms-1">Billing</span>
                 </a>
             </li>
-            <li class="nav-item">
+             <li class="nav-item">
                 <a class="nav-link  " href="../pages/virtual-reality.html">
                     <div
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -210,10 +222,10 @@
                     </div>
                     <span class="nav-link-text ms-1">Sign Up</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
+    {{--    <div class="sidenav-footer mx-3 ">
         <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
             <div class="full-background"
                 style="background-image: url('../assets/img/curved-images/white-curved.jpg')"></div>
@@ -232,6 +244,6 @@
             </div>
         </div>
         <a class="btn bg-gradient-primary mt-3 w-100"
-            href="https://www.creative-tim.com/product/soft-ui-dashboard-pro?ref=sidebarfree">Upgrade to pro</a>
+            href="https://www.creative-tim.com/product/soft-ui-dashboard-pro?ref=sidebarfree">Upgrade to pro</a> --}}
     </div>
 </aside>
