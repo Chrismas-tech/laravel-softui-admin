@@ -1,6 +1,6 @@
 @extends('admin.layouts.base-admin')
 @section('title')
-    Album Photos
+    Users List
 @endsection
 @section('content')
     <div class="container-fluid py-4">

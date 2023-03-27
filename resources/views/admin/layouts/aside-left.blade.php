@@ -81,17 +81,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() === 'admin.album-photos.index' ? 'active' : '' }}"
-                    href="{{ route('admin.album-photos.index') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa-regular fa-images {{ Route::currentRouteName() === 'admin.album-photos.index' ? 'text-white' : 'text-dark' }}"
-                            width="12px" height="12px"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Album Photos</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'admin.youtube-videos.index' ? 'active' : '' }}"
                     href="{{ route('admin.youtube-videos.index') }}">
                     <div

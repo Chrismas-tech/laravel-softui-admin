@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AlbumPhotoController;
+use App\Http\Controllers\CustomerAccountController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;
 use Illuminate\Support\Facades\Route;
@@ -26,10 +27,12 @@ Route::get('/privacy-policy', [WebsitePageController::class, 'privacyPolicy'])->
 Route::get('/cookies-policy', [WebsitePageController::class, 'cookiesPolicy'])->name('cookies-policy');
 Route::get('/shipping-and-returns-policy', [WebsitePageController::class, 'shippingAndReturnsPolicy'])->name('shipping-and-returns-policy');
 
+// Admin Routes
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+    'isAdmin'
 ])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -39,19 +42,29 @@ Route::middleware([
             Route::get('/{file}', [DownloadFileController::class, 'download'])->name('admin.download-file');
         });
 
+        Route::prefix('users')->group(function () {
+            Route::get('/', [UserAdminController::class, 'index'])->name('admin.users.index');
+        });
+
         Route::prefix('youtube-videos')->group(function () {
             Route::get('/', [YoutubeVideoController::class, 'index'])->name('admin.youtube-videos.index');
             Route::get('/create', [YoutubeVideoController::class, 'create'])->name('admin.youtube-videos.create');
         });
 
-        Route::prefix('album-photos')->group(function () {
-            Route::get('/', [AlbumPhotoController::class, 'index'])->name('admin.album-photos.index');
-            Route::get('/create', [AlbumPhotoController::class, 'create'])->name('admin.album-photo.create');
-            Route::get('/album-photo/{id}', [AlbumPhotoController::class, 'show'])->name('admin.album-photo.show');
-        });
-
         Route::prefix('library')->group(function () {
             Route::get('/', [LibraryController::class, 'index'])->name('admin.library.index');
         });
+    });
+});
+
+// Customer Routes
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'isCustomer'
+])->group(function () {
+    Route::prefix('customer')->group(function () {
+        Route::get('/account', [CustomerAccountController::class, 'index'])->name('customer.account.dashboard');
     });
 });
