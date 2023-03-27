@@ -14,5 +14,6 @@
             </div>
             <livewire:youtube-videos.youtube-video-table />
         </div>
+        <livewire:youtube-videos.update-youtube-video-form>
     </div>
 @endsection

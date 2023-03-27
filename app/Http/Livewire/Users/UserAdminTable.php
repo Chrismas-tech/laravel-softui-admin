@@ -34,7 +34,7 @@ class UserAdminTable extends DataTableComponent
     public function exportExcelSelection()
     {
         if (count($this->getSelected()) > 0) {
-            return Excel::download(new UsersExcel($this->getSelected), 'users.xlsx');
+            return Excel::download(new UsersExcel($this->getSelected()), 'users.xlsx');
             $this->clearSelected();
         }
 

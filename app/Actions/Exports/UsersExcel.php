@@ -24,7 +24,8 @@ class UsersExcel implements FromCollection
             ->get()
             ->map(function ($user) {
                 return [
-                    'name' => $user->name,
+                    'firstname' => $user->firstname,
+                    'lastname' => $user->lastname,
                     'email' => $user->email
                 ];
             });

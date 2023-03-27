@@ -6,7 +6,6 @@
     <div class="container-fluid py-4">
         <div class="card p-4">
             <livewire:users.user-admin-table />
-            <livewire:modal-edit-youtube-video />
         </div>
     </div>
 @endsection

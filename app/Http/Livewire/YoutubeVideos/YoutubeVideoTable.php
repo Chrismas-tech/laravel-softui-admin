@@ -15,6 +15,7 @@ class YoutubeVideoTable extends DataTableComponent
     use LivewireAlert;
 
     protected $model = YoutubeVideo::class;
+    protected $listeners = ['refreshYoutubeTable'];
 
     public function configure(): void
     {
@@ -43,24 +44,23 @@ class YoutubeVideoTable extends DataTableComponent
         ];
     }
 
-    public function addColumn()
+    public function refreshYoutubeTable()
     {
-        return [
-            'edit' => view('livewire.edit-user'),
-        ];
+        $this->render();
     }
 
     public array $bulkActions = [
-        'delete' => 'Delete',
-        'duplicate' => 'Duplicate',
         'edit' => 'Edit',
+        'duplicate' => 'Duplicate',
+        'delete' => 'Delete',
     ];
 
     public function edit()
     {
         if (count($this->getSelected()) === 1) {
+            $this->emit('openEditModalButton', [$this->getSelected()[0]]);
         } else {
-            $this->alert('error', 'Your must select one entry maximum !');
+            $this->alert('error', 'Your must select at least/only one entry !');
         }
     }
 
@@ -72,7 +72,6 @@ class YoutubeVideoTable extends DataTableComponent
             $this->alert('error', 'An error occured !');
         }
         $this->clearSelected();
-        $this->render();
     }
 
     public function duplicate()
@@ -83,6 +82,5 @@ class YoutubeVideoTable extends DataTableComponent
             $this->alert('error', 'An error occured !');
         }
         $this->clearSelected();
-        $this->render();
     }
 }
