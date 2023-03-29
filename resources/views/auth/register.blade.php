@@ -6,7 +6,6 @@
     <div class="container">
         <div class="row justify-content-center my-5">
             <div class="col-sm-12 col-md-10 col-lg-8 my-4">
-                @include('admin.layouts.logo')
 
                 <div class="card shadow-sm px-1 mx-4">
                     <div class="card-body">

@@ -28,16 +28,18 @@ class UserAdminTable extends DataTableComponent
 
     public function builder(): Builder
     {
-        return User::query()->orderBy('id', 'desc')/* ->where('role', 'customer') */;
+        return User::query()/* ->where('role', 'customer') */;
     }
 
     public function exportExcelSelection()
     {
         if (count($this->getSelected()) > 0) {
             return Excel::download(new UsersExcel($this->getSelected()), 'users.xlsx');
-            $this->clearSelected();
+        } else {
+            $users = User::all()->pluck('id');
+            return Excel::download(new UsersExcel($users), 'users.xlsx');
         }
-
+        $this->clearSelected();
         $this->alert('error', 'You did not select any users to export.');
     }
 
@@ -45,9 +47,11 @@ class UserAdminTable extends DataTableComponent
     {
         if (count($this->getSelected()) > 0) {
             return UsersPdf::run($this->getSelected());
-            $this->clearSelected();
+        } else {
+            $users = User::all()->pluck('id');
+            return UsersPdf::run($users);
         }
-
+        $this->clearSelected();
         $this->alert('error', 'You did not select any users to export.');
     }
 
