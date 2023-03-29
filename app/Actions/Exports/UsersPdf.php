@@ -14,8 +14,8 @@ class UsersPdf
     public function handle(Collection $attributes)
     {
         $users = User::whereIn('id', $attributes)->get();
-
         $pdfContent = PDF::loadView('pdf.customers-list', ['users' => $users])->output();
+
         return response()->streamDownload(
             fn () => print($pdfContent),
             "customers-list.pdf"

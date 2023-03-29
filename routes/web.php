@@ -3,8 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerAccountController;
 use App\Http\Controllers\DownloadFileController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LibraryController;
-use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WebsitePageController;
 use App\Http\Controllers\YoutubeVideoController;
@@ -27,6 +27,7 @@ Route::get('/terms-of-service', [WebsitePageController::class, 'termsOfService']
 Route::get('/privacy-policy', [WebsitePageController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/cookies-policy', [WebsitePageController::class, 'cookiesPolicy'])->name('cookies-policy');
 Route::get('/shipping-and-returns-policy', [WebsitePageController::class, 'shippingAndReturnsPolicy'])->name('shipping-and-returns-policy');
+
 
 // Admin Routes
 Route::middleware([

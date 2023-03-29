@@ -108,9 +108,9 @@
 <body class="invoice">
 
     <footer>
-        COMPAÑÍA DE REPARACIONES Y ASISTENCIA PARA PRODUCTOS BLANCO, MARRÓN Y GRIS, S.L. <br />
-        inscrita en el Registro Mercantil de Madrid, al Tomo 28.354, folio 199, sección 8, hoja número M-510.662
-        inscripción primera
+        REPAIR AND ASSISTANCE COMPANY FOR WHITE, BROWN AND GREY PRODUCTS, S.L. <br />
+        registered in the Mercantile Registry of Madrid, in Volume 28,354, Folio 199, Section 8, Sheet number M-510.662,
+        first inscription.
     </footer>
 
     <div class="container">
@@ -121,7 +121,7 @@
                         <img src="{{ public_path('assets/img/logo-ct-dark.png') }}" alt="">
                     </td>
                     <td width="50%;">
-                        <h1>Factura number INVOICE</h1>
+                        <h1>Invoice n° {{ $invoice->invoice_number }}</h1>
                     </td>
                 </tr>
             </table>
@@ -130,33 +130,34 @@
         <div class="heading-invoice">
             <div class="left">
                 <h4 style="font-weight: normal;">
-                    <strong>MI GARANTIA ELECTRO</strong> <br />
-                    (Compañía De Reparaciones <br />
-                    Y Asistencia Para Productos <br />
-                    Blanco Marrón Y Gris S.L.)
+                    <strong>COMPANY NAME</strong> <br />
+                    (Repair and Assistance Company for Electronics LLC)
                 </h4>
-
                 <p>
-                    NIF: B-86123486
+                    VAT: B-98765432
                     <br />
-                    Carretera de Canillas 134 <br />
-                    28043 Madrid (Madrid)<br />
-                    TLF: 911087628 <br />
-                    Email: sac@migarantiaelectro.es
+                    123 Main Street <br />
+                    New York, NY 10001<br />
+                    Phone: 212-555-1212 <br />
+                    Email: info@electronicsrepairco.com
+                </p>
+                <p>
+                    EIN: 12-3456789
+                    <br />
+                    456 Elm Avenue <br />
+                    Los Angeles, CA 90001<br />
+                    Phone: 310-555-1212 <br />
+                    Email: info@electronicsrepairco.com
                 </p>
             </div>
             <div class="right">
                 <p style="padding: 0; margin: 0;">
                 <h4 style="font-size: 18px;">14</h4>
-
-                addres <br />
-                postcode -
-                city
+                1234 Maple Street <br />
+                90210 - Beverly Hills <br />
+                ID card type: <strong>Driver's License</strong><br />
                 <br />
-                identity-card-type :
-                <strong>identity-card-number</strong><br />
-                <br />
-                Fecha operación: date
+                Operation date: 2023-03-29
                 </p>
             </div>
         </div>
@@ -170,16 +171,16 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>Serie</th>
-                            <th>Número</th>
-                            <th>Fecha</th>
-                            <th>Nº Cliente</th>
+                            <th>Series</th>
+                            <th>Number</th>
+                            <th>Date</th>
+                            <th>Customer No.</th>
                         </tr>
                         <tr>
                             <td>MGE</td>
-                            <td>number invoice</td>
-                            <td>date paid at</td>
-                            <td>warranty Number</td>
+                            <td>invoice number</td>
+                            <td>date paid</td>
+                            <td>warranty number</td>
                         </tr>
                     </tbody>
                 </table>
@@ -188,22 +189,22 @@
                 <table class="table-second">
                     <tbody>
                         <tr>
-                            <th>Artículo</th>
-                            <th style="text-align: left;">Descripción</th>
-                            <th>Unidades</th>
-                            <th>Precio</th>
-                            <th>Importe (EUR)</th>
+                            <th>Item</th>
+                            <th style="text-align: left;">Description</th>
+                            <th>Units</th>
+                            <th>Price</th>
+                            <th>Amount (EUR)</th>
                         </tr>
                         <tr>
                             <td class="b-none">MGE</td>
                             <td style="text-align: left;border:none;">
-                                Garantia anual MultiAparatos (lavadora, lavavajillas, frigorifico)
+                                Annual Multi-Device Warranty (Washing Machine, Dishwasher, Refrigerator)
                             </td>
                             <td style="text-align: right;border:none;">1.00</td>
                             <td style="text-align: right;border:none;">
-                                ex base Iva</td>
+                                excl. VAT</td>
                             <td style="text-align: right;border:none;">
-                                ex base Iva</td>
+                                excl. VAT</td>
                         </tr>
                     </tbody>
                 </table>
@@ -223,7 +224,7 @@
                         </tr>
 
                         <tr>
-                            <td colspan="2" style="padding: 5px; text-align:right;"><strong>Líquido (EUR)</strong>
+                            <td colspan="2" style="padding: 5px; text-align:right;"><strong>{{ $invoice->amount }} (EUR)</strong>
                             </td>
                             <td><strong>ex base Iva</strong></td>
                         </tr>
