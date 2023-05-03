@@ -12,7 +12,7 @@
                             <div class="card card-plain mt-8">
                                 <div class="card-header pb-0 text-left bg-transparent">
                                     <h3 class="font-weight-bolder text-info text-gradient">Login</h3>
-                                   {{--  <p class="mb-0">Enter your email and password to sign in</p> --}}
+                                    {{--  <p class="mb-0">Enter your email and password to sign in</p> --}}
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('login') }}" role="form">
@@ -31,7 +31,7 @@
 
                                         <label>Email</label>
                                         <div class="mb-3">
-                                            <input type="email"
+                                            <input type="email" placeholder="admin@gmail.com"
                                                 class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                                 name="email" required value="{{ old('email') }}" placeholder="Email">
                                             @error('email')
@@ -44,7 +44,8 @@
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                type="password" name="password" placeholder="Password" required autocomplete="current-password">
+                                                placeholder="123456" type="password" name="password" placeholder="Password"
+                                                required autocomplete="current-password">
 
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
