@@ -17,6 +17,10 @@
 - php artisan serve
 - open : http://127.0.0.1:8000
 
+#### Login Admin :
+- email : admin@gmail.com
+- password : secret
+
 #### Source Links :
 - Jetstrap : https://github.com/nascent-africa/jetstrap
 - Laravel Actions : https://laravelactions.com/

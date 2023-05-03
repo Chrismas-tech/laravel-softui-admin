@@ -44,7 +44,7 @@
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                placeholder="123456" type="password" name="password" placeholder="Password"
+                                                placeholder="secret" type="password" name="password" placeholder="Password"
                                                 required autocomplete="current-password">
 
                                             @error('password')
