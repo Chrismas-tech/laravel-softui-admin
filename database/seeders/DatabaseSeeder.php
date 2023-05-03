@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Invoice;
 use App\Models\User;
+use App\Models\YoutubeVideo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +34,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('secret'),
             'role' => 'admin'
+        ]);
+
+        //Youtube Videos
+        YoutubeVideo::factory()->create([
+            'name' => 'Livewire PowerGrid: Quick Datatable Package [REVIEW]',
+            'iframe' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Qj0GLZJzDLY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
         ]);
     }
 }
