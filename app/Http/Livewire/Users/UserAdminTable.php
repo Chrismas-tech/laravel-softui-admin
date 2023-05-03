@@ -138,11 +138,9 @@ class UserAdminTable extends DataTableComponent
     public function exportExcelSelection()
     {
         if (count($this->getSelected()) > 0) {
-            $this->clearSelected();
             return Excel::download(new UsersExcel($this->getSelected()), 'users.xlsx');
         } else {
             $users = User::all()->pluck('id');
-            $this->clearSelected();
             return Excel::download(new UsersExcel($users), 'users.xlsx');
         }
     }
@@ -150,13 +148,10 @@ class UserAdminTable extends DataTableComponent
     public function exportPdfSelection()
     {
         if (count($this->getSelected()) > 0) {
-            $this->clearSelected();
             return UsersPdf::run($this->getSelected());
         } else {
             $users = User::all()->pluck('id');
-            $this->clearSelected();
             return UsersPdf::run($users);
         }
-        $this->clearSelected();
     }
 }

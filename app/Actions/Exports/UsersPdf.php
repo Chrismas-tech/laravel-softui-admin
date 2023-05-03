@@ -11,7 +11,7 @@ class UsersPdf
 {
     use AsAction;
 
-    public function handle(Collection $attributes)
+    public function handle(array $attributes)
     {
         $users = User::whereIn('id', $attributes)->get();
         $pdfContent = PDF::loadView('pdf.customers-list', ['users' => $users])->output();
