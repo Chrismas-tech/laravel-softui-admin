@@ -46,7 +46,7 @@
                                             <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                                 placeholder="secret" type="password" name="password" placeholder="Password"
                                                 required autocomplete="current-password"
-                                                value="123456">
+                                                value="secret">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
