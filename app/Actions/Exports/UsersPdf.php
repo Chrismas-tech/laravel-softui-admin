@@ -4,7 +4,6 @@ namespace App\Actions\Exports;
 
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Collection;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class UsersPdf
