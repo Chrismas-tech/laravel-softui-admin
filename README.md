@@ -11,6 +11,7 @@
 - copy .env.example .env
 - php artisan key:generate
 - php artisan migrate --force
+- php artisan migrate:refresh --seed
 - npm install && npm run dev
 
 ### 3. Start your local server : 
