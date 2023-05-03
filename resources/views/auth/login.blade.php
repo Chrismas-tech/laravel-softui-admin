@@ -31,9 +31,9 @@
 
                                         <label>Email</label>
                                         <div class="mb-3">
-                                            <input type="email" placeholder="admin@gmail.com"
+                                            <input type="email"
                                                 class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                name="email" required value="{{ old('email') }}" placeholder="Email" value="admin@gmail.com">
+                                                name="email" required value="{{ old('email') ? old('email') : 'admin@gmail.com' }}" placeholder="Email" >
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
