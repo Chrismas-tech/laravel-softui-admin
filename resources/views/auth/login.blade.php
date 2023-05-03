@@ -33,7 +33,7 @@
                                         <div class="mb-3">
                                             <input type="email" placeholder="admin@gmail.com"
                                                 class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                name="email" required value="{{ old('email') }}" placeholder="Email">
+                                                name="email" required value="{{ old('email') }}" placeholder="Email" value="admin@gmail.com">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
@@ -45,8 +45,8 @@
                                         <div class="mb-3">
                                             <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                                 placeholder="secret" type="password" name="password" placeholder="Password"
-                                                required autocomplete="current-password">
-
+                                                required autocomplete="current-password"
+                                                value="123456">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
